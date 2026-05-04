@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chunyu Yang — Design Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0e0e0e; --white: #f5f4f0; --gray: #9a9a8e;
+  --light: #e8e7e2; --accent: #c85a1e;
+  --serif: 'DM Serif Display', 'Noto Serif SC', Georgia, serif;
+  --mono: 'DM Mono', monospace;
+  --sans: 'DM Sans', 'Noto Sans SC', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--white); color: var(--black); font-family: var(--sans); font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+
+/* ── LANG SWITCH ── */
+.lang-btn {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
+  text-transform: uppercase; background: none; border: 1px solid var(--light);
+  color: var(--gray); padding: 0.3rem 0.7rem; border-radius: 100px;
+  cursor: pointer; transition: all 0.2s; margin-left: 1rem;
+}
+.lang-btn:hover { border-color: var(--black); color: var(--black); }
+nav.dark .lang-btn { border-color: #2a2a2a; color: #555; }
+nav.dark .lang-btn:hover { border-color: var(--white); color: var(--white); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.4rem 3rem; background: var(--white); border-bottom: 1px solid var(--light);
+  transition: background 0.3s, border-color 0.3s;
+}
+nav.dark { background: var(--black); border-color: #1a1a1a; }
+.nav-name { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--black); cursor: pointer; transition: color 0.2s; }
+nav.dark .nav-name { color: var(--white); }
+.nav-right { display: flex; align-items: center; gap: 2.5rem; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); text-decoration: none; transition: color 0.2s; cursor: pointer; }
+.nav-links a:hover, .nav-links a.active { color: var(--black); }
+nav.dark .nav-links a:hover, nav.dark .nav-links a.active { color: var(--white); }
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; animation: pageIn 0.35s ease; }
+@keyframes pageIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── HERO ── */
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 3rem 5rem; border-bottom: 1px solid var(--light); position: relative; overflow: hidden; }
+.hero-index { position: absolute; top: 7rem; right: 3rem; font-family: var(--mono); font-size: 0.7rem; color: var(--gray); letter-spacing: 0.08em; writing-mode: vertical-rl; text-transform: uppercase; }
+.hero-tag { font-family: var(--mono); font-size: 0.72rem; color: var(--gray); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+.hero-title { font-family: var(--serif); font-size: clamp(3.5rem, 8vw, 7.5rem); line-height: 1.0; font-weight: 400; letter-spacing: -0.02em; max-width: 900px; opacity: 0; animation: fadeUp 0.9s 0.4s forwards; }
+.hero-title em { font-style: italic; color: var(--accent); }
+.hero-sub { margin-top: 2.5rem; max-width: 480px; font-size: 0.95rem; color: var(--gray); line-height: 1.75; opacity: 0; animation: fadeUp 0.9s 0.6s forwards; }
+.hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; color: var(--gray); text-transform: uppercase; opacity: 0; animation: fadeUp 1s 1s forwards; }
+.hero-scroll-line { width: 1px; height: 40px; background: var(--gray); animation: scrollLine 1.8s 1.2s infinite; }
+@keyframes scrollLine { 0% { transform: scaleY(1); transform-origin: top; } 50% { transform: scaleY(0); transform-origin: top; } 51% { transform: scaleY(0); transform-origin: bottom; } 100% { transform: scaleY(1); transform-origin: bottom; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── WORK ── */
+.work-section { padding: 6rem 3rem; }
+.section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--light); }
+.section-title { font-family: var(--serif); font-size: 2.2rem; font-weight: 400; }
+.section-count { font-family: var(--mono); font-size: 0.72rem; color: var(--gray); letter-spacing: 0.1em; }
+.filter-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.filter-btn { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; background: none; border: 1px solid var(--light); color: var(--gray); padding: 0.45rem 1.1rem; border-radius: 100px; cursor: pointer; transition: all 0.2s; }
+.filter-btn:hover { border-color: var(--black); color: var(--black); }
+.filter-btn.active { background: var(--black); border-color: var(--black); color: var(--white); }
+
+/* ── GRID ── */
+.projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--light); border: 1px solid var(--light); }
+
+/* ── PROJECT CARD ── */
+.project-card { background: var(--white); padding: 3.5rem; cursor: pointer; transition: background 0.3s; position: relative; overflow: hidden; }
+.project-card:hover { background: var(--black); }
+.project-card:hover .project-number, .project-card:hover .project-tags span, .project-card:hover .project-desc { color: var(--gray); }
+.project-card:hover .project-title { color: var(--white); }
+.project-card:hover .project-arrow { color: var(--accent); }
+.project-card:hover .project-visual { opacity: 0.08; }
+.project-category-badge { display: inline-block; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+.project-number { font-family: var(--mono); font-size: 0.68rem; color: var(--gray); letter-spacing: 0.12em; margin-bottom: 3rem; transition: color 0.3s; }
+.project-title { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 400; line-height: 1.1; margin-bottom: 1.2rem; transition: color 0.3s; }
+.project-desc { font-size: 0.88rem; color: var(--gray); line-height: 1.7; max-width: 380px; margin-bottom: 2rem; transition: color 0.3s; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+.project-tags span { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); border: 1px solid var(--light); padding: 0.3rem 0.7rem; border-radius: 100px; transition: color 0.3s, border-color 0.3s; }
+.project-card:hover .project-tags span { border-color: #333; }
+.project-arrow { font-family: var(--mono); font-size: 0.78rem; color: var(--black); letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.3s; display: flex; align-items: center; gap: 0.5rem; }
+.project-arrow::after { content: '→'; transition: transform 0.3s; }
+.project-card:hover .project-arrow::after { transform: translateX(4px); }
+.project-visual { position: absolute; right: -20px; bottom: -20px; width: 180px; height: 180px; opacity: 0.04; transition: opacity 0.4s; pointer-events: none; }
+
+/* ── CARD THUMB ── */
+.card-thumb { width: 100%; aspect-ratio: 16/9; background: var(--light); border-radius: 4px; margin-bottom: 2rem; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
+.card-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.project-card:hover .card-thumb img { transform: scale(1.03); }
+.card-thumb-placeholder { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+.card-thumb-placeholder svg { opacity: 0.25; width: 32px; height: 32px; }
+.card-thumb-placeholder span { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); opacity: 0.6; }
+.project-card:hover .card-thumb { background: #1a1a1a; }
+.project-card:hover .card-thumb-placeholder svg { opacity: 0.15; }
+
+/* ── WIDE CARD ── */
+.project-card.wide-card { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: stretch; }
+.project-card.wide-card .card-thumb { aspect-ratio: unset; height: 100%; min-height: 280px; margin-bottom: 0; border-radius: 0; }
+.project-card.wide-card .wide-card-content { padding: 3.5rem; display: flex; flex-direction: column; justify-content: space-between; }
+
+/* ── FILLER ── */
+.card-filler { background: var(--white); border: 1.5px dashed var(--light); display: flex; align-items: center; justify-content: center; min-height: 200px; transition: border-color 0.3s; }
+.card-filler:hover { border-color: var(--gray); }
+.card-filler-inner { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--light); transition: color 0.3s; }
+.card-filler:hover .card-filler-inner { color: var(--gray); }
+
+/* ── PROJECT DETAIL PAGE ── */
+#page-project { min-height: 100vh; padding-top: 5rem; background: var(--white); }
+.project-page-inner { max-width: 1200px; margin: 0 auto; padding: 4rem 3rem 6rem; }
+.project-page-back { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); cursor: pointer; margin-bottom: 3.5rem; transition: color 0.2s; background: none; border: none; padding: 0; }
+.project-page-back::before { content: '←'; }
+.project-page-back:hover { color: var(--black); }
+.project-page-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; padding-bottom: 3rem; margin-bottom: 3rem; border-bottom: 1px solid var(--light); }
+.project-page-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+.project-page-title { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 400; line-height: 1.05; margin-bottom: 1.5rem; }
+.project-page-desc { font-size: 0.95rem; color: var(--gray); line-height: 1.85; margin-bottom: 1.5rem; }
+.project-page-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+.project-page-tags span { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); border: 1px solid var(--light); padding: 0.35rem 0.8rem; border-radius: 100px; }
+.project-page-body { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.project-page-block h4 { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+.project-page-block ul { list-style: none; padding: 0; }
+.project-page-block li { font-size: 0.88rem; color: var(--gray); padding: 0.4rem 0; border-bottom: 1px solid var(--light); display: flex; align-items: baseline; gap: 0.6rem; }
+.project-page-block li::before { content: '—'; color: var(--light); font-size: 0.7rem; }
+.project-page-gallery { margin: 3rem 0; padding: 2.5rem 0; border-top: 1px solid var(--light); border-bottom: 1px solid var(--light); }
+.project-page-gallery-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--light); border: 1px solid var(--light); }
+.gallery-slot { background: var(--white); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.gallery-slot img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.gallery-slot:hover img { transform: scale(1.04); }
+.gallery-slot-empty { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+.gallery-slot-empty svg { opacity: 0.12; width: 28px; height: 28px; }
+.gallery-slot-empty span { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); opacity: 0.5; }
+.gallery-slot-wide { grid-column: span 2; aspect-ratio: 8/3; }
+
+/* ── ABOUT ── */
+.about-section { min-height: 100vh; background: var(--black); color: var(--white); padding: 8rem 3rem 6rem; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+.about-left h2 { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 400; line-height: 1.1; margin-bottom: 2rem; }
+.about-left h2 em { font-style: italic; color: var(--accent); }
+.about-right p { font-size: 0.92rem; color: #aaa; line-height: 1.85; margin-bottom: 1.2rem; }
+.about-photo-slot { width: 100%; aspect-ratio: 3/4; max-width: 280px; background: #1a1a1a; border-radius: 3px; overflow: hidden; margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; }
+.about-photo-slot img { width: 100%; height: 100%; object-fit: cover; }
+.about-photo-slot-placeholder { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; text-align: center; }
+.about-photo-slot-placeholder svg { opacity: 0.15; width: 36px; height: 36px; }
+.about-photo-slot-placeholder span { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: #555; }
+.skills-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 2.5rem; }
+.skill-item { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; color: #555; text-transform: uppercase; padding: 0.5rem 0; border-bottom: 1px solid #1a1a1a; transition: color 0.2s; }
+.skill-item:hover { color: var(--white); }
+.cv-block { margin-top: 3rem; }
+.cv-block-title { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; padding-bottom: 0.5rem; border-bottom: 1px solid #1e1e1e; }
+.cv-entry { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid #181818; }
+.cv-entry-left { flex: 1; }
+.cv-entry-name { font-size: 0.85rem; color: var(--white); font-weight: 400; line-height: 1.4; }
+.cv-entry-sub { font-family: var(--mono); font-size: 0.68rem; color: #555; margin-top: 0.15rem; letter-spacing: 0.04em; }
+.cv-entry-date { font-family: var(--mono); font-size: 0.65rem; color: #444; letter-spacing: 0.06em; white-space: nowrap; flex-shrink: 0; }
+.cv-tag { display: inline-block; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; background: #1a1a1a; color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 100px; margin-top: 0.3rem; margin-right: 0.3rem; }
+.cv-award { color: #c8a55a; }
+
+/* ── CONTACT ── */
+.contact-section { min-height: 100vh; padding: 8rem 3rem 6rem; display: flex; align-items: center; }
+.contact-inner { max-width: 700px; }
+.contact-inner h2 { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 400; line-height: 1.1; margin-bottom: 1.5rem; }
+.contact-inner p { font-size: 0.92rem; color: var(--gray); line-height: 1.75; margin-bottom: 3rem; }
+.contact-links { display: flex; flex-direction: column; }
+.contact-link { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; border-bottom: 1px solid var(--light); text-decoration: none; color: var(--black); transition: padding-left 0.25s; }
+.contact-link:hover { padding-left: 0.8rem; }
+.contact-link span:first-child { font-size: 0.9rem; font-weight: 400; }
+.contact-link span:last-child { font-family: var(--mono); font-size: 0.72rem; color: var(--gray); letter-spacing: 0.08em; transition: color 0.2s; }
+.contact-link:hover span:last-child { color: var(--black); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+footer { padding: 2rem 3rem; border-top: 1px solid var(--light); display: flex; justify-content: space-between; align-items: center; }
+footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--gray); letter-spacing: 0.08em; }
+
+@media (max-width: 768px) {
+  nav { padding: 1.2rem 1.5rem; }
+  .nav-links { gap: 1.2rem; }
+  .work-section, .about-section, .contact-section { padding: 4rem 1.5rem; }
+  .hero { padding: 0 1.5rem 4rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .project-page-header, .project-page-body { grid-template-columns: 1fr; }
+  footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <span class="nav-name" onclick="goTo('home')">Chunyu Yang</span>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a onclick="goTo('home')" data-page="home" data-en="Work" data-zh="作品">Work</a></li>
+      <li><a onclick="goTo('about')" data-page="about" data-en="About" data-zh="关于">About</a></li>
+      <li><a onclick="goTo('contact')" data-page="contact" data-en="Contact" data-zh="联系">Contact</a></li>
+    </ul>
+    <button class="lang-btn" onclick="toggleLang()" id="lang-toggle">中文</button>
+  </div>
+</nav>
+
+<!-- PAGE: HOME -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-index" id="hero-index">Industrial Design · 2026</div>
+    <p class="hero-tag" id="hero-tag">Portfolio — Chunyu Yang</p>
+    <h1 class="hero-title" id="hero-title">
+      Design that<br><em>solves</em> real<br>problems.
+    </h1>
+    <p class="hero-sub" id="hero-sub">
+      Product design engineer working across hardware, safety systems, interaction design, and manufacturing. Creating tools people can trust.
+    </p>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span id="scroll-label">Scroll</span>
+    </div>
+  </section>
+
+  <section class="work-section">
+    <div class="section-header reveal">
+      <h2 class="section-title" id="work-title">Selected Work</h2>
+      <span class="section-count">15 Projects</span>
+    </div>
+    <div class="filter-bar reveal" id="filter-bar">
+      <button class="filter-btn active" onclick="filterProjects('all',this)" data-en="All" data-zh="全部">All</button>
+      <button class="filter-btn" onclick="filterProjects('industrial',this)" data-en="Industrial Design" data-zh="工业设计">Industrial Design</button>
+      <button class="filter-btn" onclick="filterProjects('interface',this)" data-en="Interface" data-zh="界面设计">Interface</button>
+      <button class="filter-btn" onclick="filterProjects('theory',this)" data-en="Design Theory" data-zh="设计理论">Design Theory</button>
+      <button class="filter-btn" onclick="filterProjects('art',this)" data-en="Art &amp; Craft" data-zh="艺术与工艺">Art &amp; Craft</button>
+    </div>
+    <div class="projects-grid" id="projects-grid"></div>
+  </section>
+
+  <footer>
+    <p id="footer-copy">© 2026 Chunyu Yang — Industrial Designer</p>
+    <p id="footer-note">Personal Work · All Rights Reserved</p>
+  </footer>
+</div>
+
+<!-- PAGE: PROJECT -->
+<div class="page" id="page-project">
+  <div class="project-page-inner">
+    <button class="project-page-back" onclick="goBack()" id="back-btn">Back to Work</button>
+    <div id="project-page-content"></div>
+  </div>
+</div>
+
+<!-- PAGE: ABOUT -->
+<div class="page" id="page-about">
+  <section class="about-section">
+    <div class="about-grid">
+      <div class="about-left">
+        <div class="about-photo-slot">
+          <div class="about-photo-slot-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Photo</span>
+          </div>
+        </div>
+        <h2 id="about-headline">
+          Designing for<br>people in<br><em>demanding</em><br>situations.
+        </h2>
+        <p style="font-size:0.88rem;color:#666;line-height:1.75;margin-top:1.5rem;">
+          B.Eng Product Design &amp; Manufacture<br>
+          University of Nottingham Ningbo China<br>
+          GPA 3.4 / 4.0 · Sept 2021 – Jun 2025
+        </p>
+        <p style="font-size:0.88rem;color:#666;line-height:1.75;margin-top:0.8rem;">
+          Design Innovation<br>
+          UC Berkeley · College of Environmental Design<br>
+          2025 – Present
+        </p>
+        <div class="cv-block">
+          <div class="cv-block-title" id="awards-title">Awards &amp; Recognition</div>
+          <div class="cv-entry"><div class="cv-entry-left"><div class="cv-entry-name cv-award">🏆 3rd Place — Milan Design Week China</div><div class="cv-entry-sub" id="award1-sub">National Finals · Collegiate Design Competition &amp; Exhibition</div></div><div class="cv-entry-date">Jun 2024</div></div>
+          <div class="cv-entry"><div class="cv-entry-left"><div class="cv-entry-name" id="award2-name">Dream Scholarship — Group Technology Category</div><div class="cv-entry-sub">University of Nottingham Ningbo China</div></div><div class="cv-entry-date">Apr 2023</div></div>
+          <div class="cv-entry"><div class="cv-entry-left"><div class="cv-entry-name" id="award3-name">3 Design Patents Granted</div><div class="cv-entry-sub" id="award3-sub">Wearable Smart Heart Rate Monitor Housing · WL01 / WL02 / WL03</div></div><div class="cv-entry-date">2024</div></div>
+          <div class="cv-entry"><div class="cv-entry-left"><div class="cv-entry-name" id="award4-name">Exhibition — Wang Yangming's Former Residence</div><div class="cv-entry-sub" id="award4-sub">Flowers Will Bloom umbrella installation</div></div><div class="cv-entry-date">May 2023</div></div>
+        </div>
+        <div class="cv-block">
+          <div class="cv-block-title" id="lang-title">Languages</div>
+          <div class="cv-entry"><div class="cv-entry-left"><div class="cv-entry-name" id="lang1">Chinese</div><div class="cv-entry-sub" id="lang1-sub">Native speaker</div></div></div>
+          <div class="cv-entry"><div class="cv-entry-left"><div class="cv-entry-name" id="lang2">English</div><div class="cv-entry-sub" id="lang2-sub">Fluent</div></div></div>
+        </div>
+      </div>
+
+      <div class="about-right">
+        <p id="about-p1">I'm Chunyu Yang, a product design engineer working across hardware, safety systems, interaction design, and manufacturing. My projects span AR safety eyewear, disaster communication systems, health monitoring devices, children's products, computer vision prototypes, injection moulding, and critical design theory.</p>
+        <p id="about-p2">I build things that work under pressure — from 2.1mm nozzle tips to 30km balloon communication networks. Each project begins with deep research and ends with a tested, working prototype or a simulation-validated production design.</p>
+        <div class="cv-block">
+          <div class="cv-block-title" id="skills-title">Technical Skills</div>
+          <div class="skills-list">
+            <div class="skill-item">SolidWorks / CAD</div><div class="skill-item">Rhino / 3DS Max</div>
+            <div class="skill-item">Ansys Fluent</div><div class="skill-item">AutoCAD</div>
+            <div class="skill-item">Figma / Adobe XD</div><div class="skill-item">Adobe AI / PS</div>
+            <div class="skill-item">STM32 / Arduino</div><div class="skill-item">C Language</div>
+            <div class="skill-item">Final Cut Pro X</div><div class="skill-item">Adobe Premiere</div>
+          </div>
+        </div>
+        <div class="cv-block">
+          <div class="cv-block-title" id="exp-title">Experience</div>
+          <div class="cv-entry"><div class="cv-entry-left"><div class="cv-entry-name" id="exp1-name">Design Research Assistant</div><div class="cv-entry-sub" id="exp1-sub">Ningbo Xiecheng Power Tools Co., Ltd.</div><span class="cv-tag" id="tag-power">Power Tools</span><span class="cv-tag" id="tag-safety">Safety Design</span></div><div class="cv-entry-date">Jun – Jul 2024</div></div>
+          <div class="cv-entry"><div class="cv-entry-left"><div class="cv-entry-name" id="exp2-name">Research Assistant — Smart Medicine Lab</div><div class="cv-entry-sub" id="exp2-sub">University of Nottingham Ningbo China</div><span class="cv-tag">Medical Device</span><span class="cv-tag">STM32</span><span class="cv-tag" id="tag-patent">Patent</span></div><div class="cv-entry-date">Nov 2022 – May 2023</div></div>
+          <div class="cv-entry"><div class="cv-entry-left"><div class="cv-entry-name" id="exp3-name">Architectural Design Intern</div><div class="cv-entry-sub" id="exp3-sub">Henan Zhongyuan Petrochemical Engineering Co., Ltd.</div></div><div class="cv-entry-date">May – Aug 2022</div></div>
+          <div class="cv-entry"><div class="cv-entry-left"><div class="cv-entry-name" id="exp4-name">Design Management Intern</div><div class="cv-entry-sub" id="exp4-sub">Sinopec Heavy Lifting and Transport Engineering Co., Ltd.</div></div><div class="cv-entry-date">Jan – Mar 2022</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PAGE: CONTACT -->
+<div class="page" id="page-contact">
+  <section class="contact-section">
+    <div class="contact-inner">
+      <h2 id="contact-title">Let's work<br>together.</h2>
+      <p id="contact-desc">Open to design collaborations, full-time roles, and research partnerships in hardware and safety technology.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:2265543433@qq.com"><span>Email</span><span>2265543433@qq.com →</span></a>
+        <a class="contact-link" href="tel:+8615893261769"><span id="phone-label">Phone</span><span>+86 158 9326 1769 →</span></a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+// ─── LANGUAGE STATE ───────────────────────────────
+let currentLang = 'en';
+
+// ─── TRANSLATIONS (UI strings) ────────────────────
+const UI = {
+  en: {
+    navWork: 'Work', navAbout: 'About', navContact: 'Contact',
+    langBtn: '中文',
+    heroIndex: 'Industrial Design · 2026',
+    heroTag: 'Portfolio — Chunyu Yang',
+    heroTitle: 'Design that<br><em>solves</em> real<br>problems.',
+    heroSub: 'Product design engineer working across hardware, safety systems, interaction design, and manufacturing. Creating tools people can trust.',
+    scroll: 'Scroll',
+    workTitle: 'Selected Work',
+    filterAll: 'All', filterIndustrial: 'Industrial Design', filterInterface: 'Interface',
+    filterTheory: 'Design Theory', filterArt: 'Art & Craft',
+    footerCopy: '© 2026 Chunyu Yang — Industrial Designer',
+    footerNote: 'Personal Work · All Rights Reserved',
+    backBtn: 'Back to Work',
+    galleryLabel: 'Project Images',
+    imgLabel: 'Image',
+    moreComing: 'More Coming',
+    aboutHeadline: 'Designing for<br>people in<br><em>demanding</em><br>situations.',
+    aboutP1: "I'm Chunyu Yang, a product design engineer working across hardware, safety systems, interaction design, and manufacturing. My projects span AR safety eyewear, disaster communication systems, health monitoring devices, children's products, computer vision prototypes, injection moulding, and critical design theory.",
+    aboutP2: 'I build things that work under pressure — from 2.1mm nozzle tips to 30km balloon communication networks. Each project begins with deep research and ends with a tested, working prototype or a simulation-validated production design.',
+    awardsTitle: 'Awards & Recognition',
+    award1Sub: 'National Finals · Collegiate Design Competition & Exhibition',
+    award2Name: 'Dream Scholarship — Group Technology Category',
+    award3Name: '3 Design Patents Granted',
+    award3Sub: 'Wearable Smart Heart Rate Monitor Housing · WL01 / WL02 / WL03',
+    award4Name: "Exhibition — Wang Yangming's Former Residence",
+    award4Sub: 'Flowers Will Bloom umbrella installation',
+    langTitle: 'Languages',
+    lang1: 'Chinese', lang1Sub: 'Native speaker',
+    lang2: 'English', lang2Sub: 'Fluent',
+    skillsTitle: 'Technical Skills',
+    expTitle: 'Experience',
+    exp1Name: 'Design Research Assistant', exp1Sub: 'Ningbo Xiecheng Power Tools Co., Ltd.',
+    tagPower: 'Power Tools', tagSafety: 'Safety Design', tagPatent: 'Patent',
+    exp2Name: 'Research Assistant — Smart Medicine Lab', exp2Sub: 'University of Nottingham Ningbo China',
+    exp3Name: 'Architectural Design Intern', exp3Sub: 'Henan Zhongyuan Petrochemical Engineering Co., Ltd.',
+    exp4Name: 'Design Management Intern', exp4Sub: 'Sinopec Heavy Lifting and Transport Engineering Co., Ltd.',
+    contactTitle: 'Let\'s work<br>together.',
+    contactDesc: 'Open to design collaborations, full-time roles, and research partnerships in hardware and safety technology.',
+    phoneLabel: 'Phone',
+    viewProject: 'View project',
+  },
+  zh: {
+    navWork: '作品', navAbout: '关于', navContact: '联系',
+    langBtn: 'EN',
+    heroIndex: '工业设计 · 2026',
+    heroTag: '作品集 — 杨春宇',
+    heroTitle: '设计<br><em>解决</em>真实<br>问题。',
+    heroSub: '产品设计工程师，涉及硬件、安全系统、交互设计与制造工程，致力于创造值得信赖的产品。',
+    scroll: '向下滚动',
+    workTitle: '精选作品',
+    filterAll: '全部', filterIndustrial: '工业设计', filterInterface: '界面设计',
+    filterTheory: '设计理论', filterArt: '艺术与工艺',
+    footerCopy: '© 2026 杨春宇 — 工业设计师',
+    footerNote: '个人作品 · 保留所有权利',
+    backBtn: '返回作品列表',
+    galleryLabel: '项目图片',
+    imgLabel: '图片',
+    moreComing: '更多即将发布',
+    aboutHeadline: '在<em>极限</em>场景下<br>为人设计。',
+    aboutP1: '我是杨春宇，一名产品设计工程师，工作横跨硬件开发、安全系统、交互设计与制造工程。项目涵盖AR安全眼镜、灾区通信系统、健康监测设备、儿童产品、计算机视觉原型、注塑模具设计及批判性设计理论。',
+    aboutP2: '我设计能在压力下运作的产品——从2.1毫米喷嘴尖端到30公里气球通信网络。每个项目始于深度研究，终于经过测试的可用原型或经仿真验证的生产设计。',
+    awardsTitle: '奖项与荣誉',
+    award1Sub: '全国决赛 · 大学生设计比赛与展览',
+    award2Name: '筑梦奖学金 — 集体技术类',
+    award3Name: '3项设计专利授权',
+    award3Sub: '可穿戴智能心率监测仪外壳 · WL01 / WL02 / WL03',
+    award4Name: '展览 — 王阳明故居',
+    award4Sub: '《花将盛开》创意伞装置展',
+    langTitle: '语言',
+    lang1: '中文', lang1Sub: '母语',
+    lang2: '英语', lang2Sub: '流利',
+    skillsTitle: '技术技能',
+    expTitle: '工作经历',
+    exp1Name: '设计研究助理', exp1Sub: '宁波协成电动工具有限公司',
+    tagPower: '电动工具', tagSafety: '安全设计', tagPatent: '专利',
+    exp2Name: '研究助理 — 智慧医疗实验室', exp2Sub: '英国诺丁汉大学宁波中国校区',
+    exp3Name: '建筑设计实习生', exp3Sub: '河南中原石化工程有限公司',
+    exp4Name: '设计管理实习生', exp4Sub: '中石化重型工程有限公司',
+    contactTitle: '期待合作。',
+    contactDesc: '欢迎设计合作、全职岗位及硬件与安全技术领域的研究合作。',
+    phoneLabel: '电话',
+    viewProject: '查看项目',
+  }
+};
+
+// ─── PROJECT DATA (bilingual) ─────────────────────
+const PROJECTS = [
+  {
+    id:'01', cat:'industrial', num:'01 / 2024',
+    en:{ title:'WoodCraft Vision', desc:'Smart AR safety eyewear for woodworking professionals. Integrates LiDAR, AI hazard detection, and real-time measurement overlays.', tags:['AR / Smart Eyewear','LiDAR','Safety Tech','Industrial Design'], label:'Project 01', intro:['A practical smart eyewear designed for woodworking professionals, addressing the two primary causes of workshop accidents: improper tool use and lack of real-time safety feedback.','Provides accurate cutting distance measurement, cutting advice, and instant hazard alerts.'], category:'Industrial Design · Personal Work', blocks:[{title:'Core Technology',items:['LiDAR for precise distance measurement','AI-powered tool recommendations','Real-time safety analytics','Eye tracking technique','Auto-tinting visor']},{title:'Key Features',items:['Accurate cutting distance measurement','Instant hazard alerts overlay','Air-permeable cushioned frame','Touch adjustment controls','Companion mobile app']},{title:'Design Language',items:['White frame — clean, professional','Orange accents — safety visibility','Adjustable headband + buckle','High-strength visor housing']},{title:'Research Findings',items:['Accidents from improper tool use','Existing goggles lack smart alerts','VR headsets too heavy for workshops','Need for pre-use safety training']}] },
+    zh:{ title:'WoodCraft Vision 智能护目镜', desc:'专为木工专业人士设计的AR安全眼镜。集成LiDAR精准测量、AI工具建议与实时危险预警。', tags:['AR / 智能护目镜','LiDAR','安全技术','工业设计'], label:'项目 01', intro:['专为木工专业人士设计的实用智能护目镜，针对工坊事故的两大主要原因——不当使用工具和缺乏实时安全反馈——提供解决方案。','提供精准切割距离测量、切割建议和即时危险预警。'], category:'工业设计 · 个人作品', blocks:[{title:'核心技术',items:['LiDAR精准距离测量','AI工具使用建议','实时安全分析','眼动追踪技术','自动变色护目镜']},{title:'主要功能',items:['精准切割距离测量','即时危险预警叠加显示','透气缓冲框架','触控调节按钮','配套手机应用']},{title:'设计语言',items:['白色框架——干净专业','橙色强调色——安全可见性','可调节头带与扣具','高强度护目镜外壳']},{title:'研究发现',items:['事故源于工具使用不当','现有护目镜缺少智能预警','VR头显太重不适合工坊','需要使用前安全培训']}] }
+  },
+  {
+    id:'02', cat:'industrial', num:'02 / 2024',
+    en:{ title:'Balloon Comm', desc:'Tethered balloon system for rapid communication restoration in earthquake disaster zones. Covers 30km diameter, serving 30,000–50,000 people per unit.', tags:['Disaster Response','LTE / GSM','Systems Design','Hardware'], label:'Project 02', intro:['A tethered balloon communication restoration system for post-earthquake disaster zones. Deployed by airdrop, using master-subordinate balloons to rapidly restore coverage.','Each balloon group covers 30km diameter, serving 30,000–50,000 people.'], category:'Systems Design · Hardware · Personal Work', blocks:[{title:'System Components',items:['Master balloon with LTE base station','Subordinate balloons (GSM backup)','Microwave antenna mesh network','Radar / camera equipment','Satellite antenna link']},{title:'Technical Specs',items:['Antenna elevation: 50–100m','Coverage: 30km diameter','LTE: 700MHz–2.7GHz, 15km range','GSM: 900/1800MHz, 35km range','Wind tolerance: up to 15m/s']},{title:'Deployment',items:['Airdrop from aircraft','Open case → inflate balloon','Release line → check signal','Fully operable by rescue teams','Recovery via reel-in system']},{title:'Testing Results',items:['Open environment: 2km stable range','Building occlusion: 1km stable','Prototype validated via actual launch','Fluid simulation at 10/15/20 m/s']}] },
+    zh:{ title:'Balloon Comm 气球通信系统', desc:'用于地震灾区快速通信恢复的系留气球系统。每套可覆盖直径30公里区域，服务3万至5万人。', tags:['灾难响应','LTE / GSM','系统设计','硬件'], label:'项目 02', intro:['用于震后灾区的系留气球通信恢复系统，通过空投部署，利用主从气球网络快速恢复LTE和GSM覆盖。','每套气球组可覆盖直径30公里区域，服务3万至5万人，确保灾区短期通信。'], category:'系统设计 · 硬件 · 个人作品', blocks:[{title:'系统组件',items:['携带LTE基站的主气球','从气球（GSM备份）','微波天线网状网络','雷达/摄像设备','卫星天线链路']},{title:'技术规格',items:['天线高度：50–100米','覆盖范围：直径30公里','LTE：700MHz–2.7GHz，15公里','GSM：900/1800MHz，35公里','抗风能力：最高15m/s']},{title:'部署流程',items:['从飞机空投','打开箱体→充气','释放绳索→检查信号','救援队可完全操作','通过卷线系统回收']},{title:'测试结果',items:['空旷环境：2公里稳定通信','建筑遮蔽：1公里稳定','原型通过实际发射验证','流体仿真：10/15/20 m/s']}] }
+  },
+  {
+    id:'03', cat:'industrial', num:'03 / 2024',
+    en:{ title:'Roaming Vacuum', desc:"A vacuum cleaner transformed into a remote-controlled roaming companion. Working with the object's existing affordances to create something that cleans but also behaves.", tags:['Interactive Object','Embedded Systems','Repurposing','Wireless Control'], label:'Project 03', intro:["A household vacuum cleaner transformed into a remote-controlled roaming object by adding wireless mobility — without redesigning the product.",'The result is an object that still cleans, but also behaves more like a playful companion.'], category:'Interactive Object Design · Personal Work', blocks:[{title:'Technical Stack',items:['Wireless servo control (NRF module)','ATK-LORA-01 angle control','STM32 microcontroller','BMP280 sensor module','OLED real-time display']},{title:'Design Approach',items:['Work with existing affordances','Remote-controlled wheel mobility','Simple facial expression added','Identity amplified, not erased','Passive tool → active creature']},{title:'Reflection',items:["Repurposing = listening to the object",'People reacted to its personality','Creature-like qualities emerged','Changed how users approached it']},{title:'Inspiration',items:['Autonomous cleaning devices','Companion-like domestic robots','Playful product design','Behavioral object design']}] },
+    zh:{ title:'Roaming Vacuum 漫游吸尘器', desc:'将旧吸尘器改装为遥控漫游伴侣。利用物体既有的设计语言——轮子、声音、吸力——创造出既会清洁又有行为的存在。', tags:['交互物体','嵌入式系统','再利用','无线控制'], label:'项目 03', intro:['通过添加无线移动功能，将家用吸尘器改造成遥控漫游物体——无需重新设计产品。','结果是一个仍然会清洁、但行为更像玩伴而非简单家电的物体。'], category:'交互物体设计 · 个人作品', blocks:[{title:'技术架构',items:['无线舵机控制（NRF模块）','ATK-LORA-01角度控制','STM32微控制器','BMP280传感器模块','OLED实时显示']},{title:'设计方法',items:['利用物体既有设计语言','遥控轮子移动','添加简单表情','放大身份而非抹去','被动工具→主动生物']},{title:'反思',items:['再利用=倾听物体的声音','用户对其个性做出反应','生物般特质自然涌现','改变了用户的接近方式']},{title:'灵感来源',items:['自动清洁设备','伴侣型家用机器人','趣味产品设计','行为物体设计']}] }
+  },
+  {
+    id:'04', cat:'industrial', num:'04 / 2024',
+    en:{ title:'Health Watch Toilet', desc:'A smart toilet seat integrating health monitoring for diabetic patients — measuring urinary glucose, blood pressure, blood oxygen, and ECG during daily bathroom use.', tags:['Health Tech','STM32 / Sensors','Embedded Design','Privacy-first'], label:'Project 04', intro:['A smart toilet designed for diabetic patients requiring long-term monitoring. Integrates sensors into the daily toileting process.','Measures urinary glucose, blood pressure, blood oxygen, and ECG. Validated with 5 participants.'], category:'Integrated Health Monitoring · Personal Work', blocks:[{title:'Sensors & Hardware',items:['ECG electrode patches','Blood oxygen + heart rate module','Blood pressure sensor','Urine glucose optical sensor','STM32 microcontroller + OLED']},{title:'Testing Results',items:['Glucose error as low as 0.1%','Heart rate readings: ±3–7 bpm','ECG signal generally clear','5 participants, varied health profiles']},{title:'Design Principles',items:['Privacy-first interaction','Seamless daily integration','Raised seat to prevent splatter','ECG measurement area on seat']},{title:'Problem Space',items:['Diabetics avoid hospital urine tests','Finger pricks: painful and costly','No real-time doctor feedback','Risk of complications (neuropathy, CKD)']}] },
+    zh:{ title:'Health Watch Toilet 健康监测马桶', desc:'为糖尿病患者设计的智能马桶座，在日常如厕过程中测量尿糖、血压、血氧和心电图数据。', tags:['健康科技','STM32 / 传感器','嵌入式设计','隐私优先'], label:'项目 04', intro:['为需要长期持续健康监测的糖尿病患者设计的智能马桶，将传感器融入日常如厕过程。','测量尿糖、血压、血氧和心电图数据，5名参与者参与了验证测试。'], category:'综合健康监测 · 个人作品', blocks:[{title:'传感器与硬件',items:['心电图电极贴片','血氧+心率模块','血压传感器','尿糖光学传感器','STM32微控制器+OLED']},{title:'测试结果',items:['葡萄糖误差低至0.1%','心率读数：±3–7 bpm','心电图信号总体清晰','5名不同健康状况参与者']},{title:'设计原则',items:['隐私优先交互','无缝日常融合','抬高座位防飞溅','心电图测量区在座圈上']},{title:'问题空间',items:['糖尿病人逃避医院尿检','指尖采血：痛苦且昂贵','缺乏实时医生反馈','并发症风险（神经病变、肾病）']}] }
+  },
+  {
+    id:'05', cat:'industrial', num:'05 / 2024',
+    en:{ title:'SerenePet Light', desc:"A Frisbee-shaped smart comfort lamp and dog toy that detects canine anxiety and responds with adaptive light, vibration, and sound — self-powered by the dog's own play movements.", tags:['Pet Wellbeing','Smart Materials','Sensor Design','Sustainable'], label:'Project 05', intro:["Dogs suffer separation anxiety when left alone at night. SerenePet Light combines a smart comfort lamp with an interactive toy, using a rocking charging module powered by the dog's movements.",'Provides 20–50 lux at 2700–6000K depending on detected emotional state.'], category:'Product Design · Pet Wellbeing · Personal Work', blocks:[{title:'Behavioral States',items:['Calm: 20 lux, 2700K warm, no vibration','Anxiety: 50 lux, 6000K blue, 3Hz vibration','Happy: 50 lux, 3000K warm, no vibration','Detected via accelerometer threshold']},{title:'Technology',items:['Accelerometer state detection','Rocking self-charging module','Adaptive LED light output','Sound + vibration feedback','Zipper-removable plush cover']},{title:'Material Design',items:['Cornvelvet fabric (sustainable)','Waterproof impact-resistant shell','Teeth-grinding rope for oral health','Owner-mendable design']},{title:'Research Basis',items:['Survey of 37 dog owners','Dogs need only 20–50 lux at night','Top needs: interactivity, comfort, safety','Frisbee shape from dog habit study']}] },
+    zh:{ title:'SerenePet Light 宠物安抚灯', desc:'飞碟形智能安抚灯兼狗狗玩具，通过加速度计检测宠物焦虑，以自适应灯光、振动和声音响应——由狗狗自身的玩耍动作发电。', tags:['宠物健康','智能材料','传感器设计','可持续'], label:'项目 05', intro:['狗狗独处时容易产生分离焦虑。SerenePet Light将智能安抚灯与互动玩具结合，利用摇摆充电模块由狗狗活动驱动发电。','根据检测到的情绪状态，提供20–50勒克斯、色温2700–6000K的自适应灯光。'], category:'产品设计 · 宠物健康 · 个人作品', blocks:[{title:'行为状态',items:['平静：20勒克斯，2700K暖光，无振动','焦虑：50勒克斯，6000K蓝光，3Hz振动','快乐：50勒克斯，3000K暖光，无振动','通过加速度计阈值检测']},{title:'技术',items:['加速度计状态检测','摇摆自发电模块','自适应LED灯光输出','声音+振动反馈','可拆卸拉链毛绒外套']},{title:'材料设计',items:['玉米绒布料（可持续）','防水抗冲击外壳','磨牙绳促进口腔健康','主人可自行修补的设计']},{title:'研究依据',items:['37名狗主人问卷调查','狗狗夜间只需20–50勒克斯','主要需求：互动性、舒适、安全','飞碟形态源于狗狗习性研究']}] }
+  },
+  {
+    id:'06', cat:'industrial', num:'06 / 2024',
+    en:{ title:'Safe Swing Car', desc:"A truly safe, sustainable children's swing car designed for Decathlon. Addresses posture risks, rollover hazards, and end-of-life waste through modular architecture.", tags:["Children's Product",'Decathlon','Ergonomics','Sustainable Design'], label:'Project 06 — Decathlon', intro:["A children's swing car addressing three overlooked problems: incorrect sitting posture causing O-shaped legs, rollover risk, and plastic waste at end of life.",'The 2-in-1 transformable geometry converts from swing car to balance bike.'], category:"Children's Product Design · Decathlon Brief", blocks:[{title:'Safety Features',items:['Inclined foot pedals prevent genu varum','Anti-rollover assistant side wheels','Riding area: 300×170mm ergonomic zone','Seat height adjustable: 210–250mm']},{title:'Design System',items:['2-in-1: swing car → balance bike','Detachable modular architecture','Changeable indoor / outdoor wheel sets','Music player integrated in handlebar']},{title:'Materials & Finish',items:['White structural frame — clean, durable','Orange accent — safety visibility','Black rubber grips and wheel hubs','Soft-touch seat surface — child-safe']},{title:'Sustainability',items:['Fully detachable for component recycling','Modular replacement reduces total waste','2-in-1 extends product lifecycle']}] },
+    zh:{ title:'Safe Swing Car 安全扭扭车', desc:'为迪卡侬设计的真正安全、可持续儿童扭扭车。通过模块化架构解决姿势风险、翻车隐患和废弃物问题。', tags:['儿童产品','迪卡侬','人体工学','可持续设计'], label:'项目 06 — 迪卡侬', intro:['一款儿童扭扭车，解决三个被忽视的问题：不正确坐姿导致O型腿、玩耍时翻车风险以及产品废弃后的塑料浪费。','2合1可变形几何结构，可从扭扭车模式转变为平衡车模式。'], category:'儿童产品设计 · 迪卡侬项目', blocks:[{title:'安全特性',items:['倾斜踏板防止膝内翻（O型腿）','防翻辅助侧轮','骑行区域：300×170mm人体工学设计','座椅高度可调：210–250mm']},{title:'设计系统',items:['2合1：扭扭车→平衡车','可拆卸模块化架构','室内/室外可换轮组','车把集成音乐播放器']},{title:'材料与表面',items:['白色结构框架——干净耐用','橙色强调色——安全可见性','黑色橡胶握把与轮毂','柔软触感座椅——儿童安全']},{title:'可持续性',items:['完全可拆卸分类回收','模块化更换减少总废弃量','2合1延长产品生命周期']}] }
+  },
+  {
+    id:'07', cat:'industrial', num:'07 / 2024',
+    en:{ title:'AquaRescue', desc:'An experimental prototype for automated water rescue. Uses YOLO-based computer vision and dual-servo mechanical control to launch flotation toward a person in distress.', tags:['Computer Vision','YOLO Detection','Mechatronics','Safety Systems'], label:'Project 07 · Naomi Yang', intro:['AquaRescue investigates how computer vision and mechanical control can automate early flotation delivery without requiring on-site human action.','The system reframes success from precise targeting to reliable, reachable deployment.'], category:'Mechatronics · Computer Vision · Personal Work', blocks:[{title:'System Architecture',items:['Single-camera image acquisition','YOLO-based real-time person detection','Monocular target distance estimation','Wind speed + direction sensing','WiFi wireless data transmission']},{title:'Mechanical Experiments',items:['Set A: Servo + electromagnet — unstable','Set B: Single-servo — poor direction','Set C: Dual-servo — 10/10 straight launches','Wind compensation tested']},{title:'Key Findings',items:['Dual-servo actuation critical for reliability','Fixed-angle control limited under wind','System-level latency main failure mode','Reachable deployment > exact precision']},{title:'Prototype',items:['Wind direction + speed sensors','Camera module + launch mechanism','Python + Arduino codebase','Demo video: youtu.be/n6saFRbx8Nw']}] },
+    zh:{ title:'AquaRescue 水上智能救援系统', desc:'自动化水上急救原型。利用基于YOLO的计算机视觉和双舵机机械控制，向溺水者发射浮力装置。', tags:['计算机视觉','YOLO检测','机电一体化','安全系统'], label:'项目 07 · 杨春宇（Naomi）', intro:['AquaRescue探索计算机视觉和机械控制如何在无需现场人员的情况下自动化实施早期浮力救援。','系统将成功标准从精准命中重新定义为可靠、可够及的部署。'], category:'机电一体化 · 计算机视觉 · 个人作品', blocks:[{title:'系统架构',items:['单摄像头图像采集','基于YOLO的实时人员检测','单目目标距离估算','风速+风向传感','WiFi无线数据传输']},{title:'机械实验',items:['方案A：舵机+电磁铁——不稳定','方案B：单舵机——方向性差','方案C：双舵机——10/10次直线发射','风向补偿测试']},{title:'关键发现',items:['双舵机驱动对可靠性至关重要','固定角度控制在风中受限','系统级延迟是主要故障模式','可够及部署优先于精准命中']},{title:'原型',items:['风向+风速传感器','摄像头模块+发射机构','Python + Arduino代码库','演示视频：youtu.be/n6saFRbx8Nw']}] }
+  },
+  {
+    id:'08', cat:'industrial', num:'08 / 2024',
+    en:{ title:'Injection Mould Design', desc:'Complete injection moulding analysis and tooling design for a liquid-dispensing screw cap. Full SolidWorks pipeline targeting 250,000 parts per year.', tags:['Mould Flow Analysis','SolidWorks Plastics','Tooling Design','Manufacturing Engineering'], label:'Project 08 — MMME3035', intro:['A rigorous end-to-end injection moulding study on a liquid-dispensing screw cap, from physical measurement through mould flow simulation to a fully designed four-cavity production mould.','Target: 250,000 parts per annum. Material: STAMYLAN P 110MNK10 (PP).'], category:'Manufacturing Engineering · Academic Project · Chunyu Yang', blocks:[{title:'Mould Flow Results',items:['Gate: nozzle tip injection (Scheme 2)','Max fill time: 0.38 seconds','Fill pressure: 0.10–29.92 MPa','Max cooling time: 2.88 seconds','Volume shrinkage: 1.47–16.53%']},{title:'Material Selection',items:['STAMYLAN P 110MNK10 (DSM)','Elastic modulus: 2100 MPa','Melt temp: 230°C, demould: 110°C','Thermal conductivity: 0.171 W/m-K']},{title:'Tooling Design',items:['Four-cavity mould layout','Surrounding cooling channel design','Venting slots: 0.05mm deep, ≤0.3mm wide','Fixed half: hot runner + cooling channels']},{title:'Part Specifications',items:['Outer diameter: 22.46mm','4-turn internal thread, height 14mm','Nozzle height: 45.38mm, tip: 2.1mm','20× external grip bumps at 18° intervals']}] },
+    zh:{ title:'注塑模具设计', desc:'液体分配螺旋盖的完整注塑分析与模具设计。全套SolidWorks流程，目标产量25万件/年。', tags:['模流分析','SolidWorks Plastics','模具设计','制造工程'], label:'项目 08 — MMME3035', intro:['对液体分配螺旋盖进行严格的端到端注塑研究，从实物测量、1:1建模，经过模流仿真，到完整的四腔生产模具设计。','目标产量：25万件/年。选用材料：STAMYLAN P 110MNK10（PP）。'], category:'制造工程 · 学术项目 · 杨春宇', blocks:[{title:'模流分析结果',items:['浇口：喷嘴尖端注射（方案2）','最大充填时间：0.38秒','充填压力：0.10–29.92 MPa','最大冷却时间：2.88秒','体积收缩率：1.47–16.53%']},{title:'材料选择',items:['STAMYLAN P 110MNK10（DSM）','弹性模量：2100 MPa','熔融温度：230°C，脱模温度：110°C','导热系数：0.171 W/m-K']},{title:'模具设计',items:['四腔模具布局','环绕式冷却水道设计','排气槽：深0.05mm，宽≤0.3mm','定模：热流道+冷却水道']},{title:'零件规格',items:['外径：22.46mm','4圈内螺纹，高14mm','喷嘴高45.38mm，尖端2.1mm','20个外部防滑纹，间隔18°']}] }
+  },
+  {
+    id:'09', cat:'interface', num:'09 / 2026', badge_en:'Interface Design', badge_zh:'界面设计',
+    en:{ title:'Mori', desc:"A digital companion app that mirrors teenagers' social media behavior as a pet's emotional state — making invisible habits visible.", tags:['UX / App Design','Behavior Design','Teen Wellbeing','iOS'], label:'Project 09 — Interface · Team', intro:['Mori makes the invisible impact of social media visible through a digital pet that mirrors behaviors as emotional states — building empathy and self-reflection without lecturing.','The pet becomes anxious after late-night scrolling, tired after long sessions, and happy after balanced use.'], category:'Team: Alvin Zheng, Eva Fan, Naomi Yang, Wendy Wen · Spring 2026', blocks:[{title:'Behavior → Pet State',items:['Duration → High arousal / fatigue','Late-night → Sleep disruption state','Content type → Stress or curiosity','6 states: Excited, Calm, Curious, Insecure, Anxious, Tired']},{title:'3 Core Features',items:['Live Feedback — pet reacts via Dynamic Island','Usage Report — weekly synthesis','Buddy Mode — share pet states','Buddy Tasks — real-world shared challenges']},{title:'Design System',items:['Blue + white — trustworthy, non-alarming','Illustrated pet characters (frog, dog)','Dynamic Island integration','Mailbox for friend pet messages']},{title:'Research Insight',items:['Impact = duration × time × content × pattern','Behavioral mirror → empathy, not guilt','Shared accountability more effective']}] },
+    zh:{ title:'Mori 数字宠物社媒助手', desc:'将青少年的社交媒体行为映射为宠物情绪状态的数字伴侣应用——让不可见的习惯变得可见。', tags:['UX / 应用设计','行为设计','青少年健康','iOS'], label:'项目 09 — 界面设计 · 团队', intro:['Mori通过将社交媒体行为映射为数字宠物的情绪状态，使不可见的影响变得可见——以同理心和自我反思代替说教。','宠物在深夜刷屏后变得焦虑，长时间使用后疲惫，使用平衡后快乐。'], category:'团队：Alvin Zheng、Eva Fan、杨春宇、Wendy Wen · 2026春季', blocks:[{title:'行为→宠物状态',items:['时长→高度唤醒/疲劳','深夜使用→睡眠紊乱状态','内容类型→压力或好奇','6种状态：兴奋、平静、好奇、不安、焦虑、疲惫']},{title:'3大核心功能',items:['实时反馈——宠物通过灵动岛实时反应','使用报告——每周情绪+屏幕时间综合','伙伴模式——分享宠物状态','伙伴任务——线下共同挑战']},{title:'设计系统',items:['蓝+白——值得信任，不引发警觉','插画宠物形象（青蛙、狗狗等）','灵动岛集成','好友宠物消息邮箱']},{title:'研究洞察',items:['影响=时长×时段×内容×模式','行为镜子→同理心而非内疚','共同责任比个人追踪更有效']}] }
+  },
+  {
+    id:'10', cat:'interface', num:'10 / 2025', badge_en:'Interface Design', badge_zh:'界面设计',
+    en:{ title:'Time Juice', desc:"A time-sharing wallet where time is liquid. Users pour hours into other people's bottles — each transfer confirmed by a mocking character who reminds you what you just gave away.", tags:['Interaction Design','Speculative UX','Microcopy','DESINV 210'], label:'Project 10 — Interface · DESINV 210', intro:['Time Juice reimagines time as a liquid — something with weight, texture, and scarcity. Each transfer is irreversible and confirmed by a sarcastic character.','The project explores whether humor and absurdity can make digital time feel as tangible as money.'], category:'Naomi (Chunyu) Yang · DESINV 210, Oct 2025', blocks:[{title:'Core Interactions',items:['Home — bottle shows total balance','Send — select recipient from Favorites','Adjust hours via +/− stepper','Confirm → animated liquid pour','Feedback — mocking character confirms transfer']},{title:'Tone of Voice',items:['"Oh great, another human trading time like crypto."','"OHHH jeez, you just gave away 2 hours!"','Interface talks back — meta personality','Humor bridging UX theory and comedy']},{title:'Design Evolution',items:['V1: "Cronenberg Time" — too dark','V2: "Time Wallet" — satirical retained','V3: "Time Juice" — final, playful + clear','Slider → button (discoverability)']},{title:'Reflection',items:['Humor helps users accept the concept','Tone must balance fun and clarity','Discoverability = looks touchable, not just beautiful']}] },
+    zh:{ title:'Time Juice 时间钱包', desc:'将时间视为液体的时间共享钱包。用户把时间倒入别人的瓶子——每次转账都由一个讽刺角色确认，提醒你刚刚给出了什么。', tags:['交互设计','思辨UX','微文案','DESINV 210'], label:'项目 10 — 界面设计 · DESINV 210', intro:['Time Juice将时间重新想象为液体——有重量、质感和稀缺性的东西。每次转账不可撤销，由一个讽刺角色确认。','探索幽默和荒诞是否能让数字时间像金钱一样有实感。'], category:'杨春宇（Naomi）· DESINV 210，2025年10月', blocks:[{title:'核心交互',items:['主页——瓶子显示总余额','发送——从常用联系人选择接收者','通过+/−步进器调整小时数','确认→液体倒入动画','反馈——讽刺角色确认转账']},{title:'语气与语调',items:['"太好了，又一个像炒币一样炒时间的人类。"','"天哪，你刚刚送出去2小时！"','界面会反嘴——元个性','幽默连接UX理论与喜剧感']},{title:'设计演变',items:['V1："克朗伯格时间"——太黑暗被否','V2："时间钱包"——保留讽刺','V3："Time Juice"——最终版，趣味+清晰','滑块→按钮（可发现性问题）']},{title:'反思',items:['幽默帮助用户接受概念','语气必须在趣味与清晰间平衡','可发现性=看起来可以点击，而非仅仅美观']}] }
+  },
+  {
+    id:'11', cat:'interface', num:'11 / 2026', badge_en:'Interface Design', badge_zh:'界面设计',
+    en:{ title:'PastPort', desc:'An AR walking experience in SF Chinatown. Users point their phone at streets and buildings — a historical layer appears, revealing stories of migration hidden in plain sight.', tags:['AR / Location-based','Cultural Heritage','Spatial Storytelling','Design for Presence'], label:'Project 11 — Interface · Design for Presence', intro:['PastPort connects key sites across SF Chinatown through location-triggered AR overlays. Each location becomes a memory node where users unlock historical scenes.','Chinatown is not a single story — it is a living intersection of migration, memory, and identity.'], category:'Team: Belinda Liu, Naomi Yang, Alvin Zheng, Congruo Guan', blocks:[{title:'4 Route Nodes',items:['Node 1 — Hotaling Warehouse','Node 2 — Portsmouth Square','Node 3 — Commercial Street','Node 4 — Chinatown Gate','Each node unlocks AR overlay + NPC story']},{title:'User Flow',items:['Entry + Overview → tap Get Started','AR Navigation → historical scene appears','NPC Conversation → resident character','Reflection → closing message','Reality View ↔ Tourist View toggle']},{title:'Three Roles',items:['Tourist — end user, walks the experience','Shop Owner — mediator, community context','Residents — content generators, personal stories']},{title:'User Feedback',items:['"Made Chinatown feel less like a photo spot."','"Shows daily life, not a polished tourist image."','"Small stores can carry community stories."','Key: AR should change how people notice a place']}] },
+    zh:{ title:'PastPort AR唐人街记忆漫步', desc:'旧金山唐人街AR步行体验。用手机对准街道和建筑——历史层随即浮现，揭示隐藏在日常景观中的移民故事。', tags:['AR / 位置感知','文化遗产','空间叙事','存在感设计'], label:'项目 11 — 界面设计 · 存在感设计课', intro:['PastPort通过位置触发的AR叠加层连接旧金山唐人街的关键地点，每个位置成为一个记忆节点，用户可解锁历史场景。','唐人街不是一个单一故事——它是移民、记忆与身份的交汇地带。'], category:'团队：Belinda Liu、杨春宇、Alvin Zheng、Congruo Guan', blocks:[{title:'4个路线节点',items:['节点1——Hotaling仓库','节点2——朴次茅斯广场','节点3——商业街','节点4——唐人街牌楼','每个节点解锁AR叠加层+NPC故事']},{title:'用户流程',items:['入口+概览→点击开始','AR导航→历史场景出现','NPC对话→与居民角色交谈','反思→结语，受邀继续探索','现实视图↔游客视图切换']},{title:'三种角色',items:['游客——终端用户，步行体验','店主——中介，提供社区背景','居民——内容生产者，个人故事来源']},{title:'用户反馈',items:['"让唐人街不再只是打卡景点。"','"展示了日常生活，而非光鲜的旅游形象。"','"小店铺可以承载社区故事。"','关键：AR应改变人们感知场所的方式']}] }
+  },
+  {
+    id:'12', cat:'art', num:'12 / 2023', badge_en:'Art & Craft', badge_zh:'艺术与工艺',
+    en:{ title:'Flowers Will Bloom', desc:"A creative umbrella promoting Yangming culture. Inspired by Wang Yangming's philosophy, fusing traditional Chinese petal forms with an illuminated handle.", tags:['Cultural Design','Craft / Making','Traditional + Contemporary','LED / Mechanism'], label:'Project 12 — Art & Craft', intro:['Wang Yangming said: "When you come to see this flower, the color becomes clear for a moment, and you know that it is not outside your heart."','This umbrella translates that philosophy into a physical object — attracting young tourists through aesthetics while letting them encounter Yangming culture firsthand.'], category:'Cultural Design · Art & Craft · Personal Work', blocks:[{title:'Design Evolution',items:['V1 — Flat petal shapes, excess elements','V2 — 3D petals; Shaoyao flower type chosen','V3 — Storage hook, LED bulb, induction switch','7 umbrella bones mirror Yangming integrity']},{title:'Technical Features',items:['LED bulb — energy saving, low heat','Electromagnetic induction switch','18650 lithium battery — rechargeable','Moveable umbrella head']},{title:'Cultural Concept',items:['Yangming philosophy of mind','Shaoyao blooms in early May','Target: young social-media tourists','Gateway object → cultural experience']},{title:'Outcomes',items:['3rd Place — Milan Design Week China (Jun 2024)','Exhibition at Wang Yangming Former Residence (May 2023)','1:1 physical model constructed']}] },
+    zh:{ title:'花将盛开', desc:'推广阳明文化的创意伞。灵感源自王阳明哲学，将传统中国花瓣形态与发光手柄融合。', tags:['文化设计','手工制作','传统+当代','LED / 机械'], label:'项目 12 — 艺术与工艺', intro:['王阳明说："你来看此花时，则此花颜色一时明白起来，便知此花不在你的心外。"','这把伞将这一哲学转化为实物——通过社交媒体吸引年轻游客，同时让他们亲身体验阳明文化。'], category:'文化设计 · 艺术与工艺 · 个人作品', blocks:[{title:'设计演变',items:['V1——平面花瓣形，装饰元素过多','V2——更立体的花瓣，选用芍药花型','V3——增加收纳钩、LED灯泡、电磁开关','保留7根伞骨，映射阳明先生的心性完整']},{title:'技术特性',items:['LED灯泡——节能，低热，环保','电磁感应开关——合伞时灯亮','18650锂电池——可充电可复用','伞头可上下移动']},{title:'文化概念',items:['阳明心学——心即理，知行合一','芍药五月初开，不与群花争艳','目标：被拍照吸引的年轻游客','入口物品→深度文化体验']},{title:'成果',items:['米兰设计周全国决赛季军（2024年6月）','王阳明故居展览（2023年5月）','1:1实物模型制作完成']}] }
+  },
+  {
+    id:'13', cat:'art', num:'13 / 2023', badge_en:'Art & Craft', badge_zh:'艺术与工艺',
+    en:{ title:'MuscleFuel Bottle', desc:'A sports mug that changes from solid black to a muscular pattern when temperature drops below 45°C. Paired with a dumbbell-shaped refill canister.', tags:['Product Semantics','CMF Design','Thermochromic Material','Fitness'], label:'Project 13 — Art & Craft · Product Semantics', intro:['MuscleFuel explores how a product\'s form and material behavior can create an emotional connection to fitness goals.','The mug changes from solid black to a muscular silhouette pattern below 45°C.'], category:'Product Design · Product Semantics · Personal Work', blocks:[{title:'Material & CMF',items:['Silicone sleeve with thermochromic dye','Black above 45°C, muscular below','Food-grade plastic cup body','Dumbbell-shaped refill canister']},{title:'Product Semantics',items:['Dumbbell canister — lifting metaphor','Temperature change = visible strength','Object as motivational companion','Blends fitness with everyday hydration']},{title:'Concept Origins',items:['Idea 1 — Outdoor running, step tracking','Idea 2 — Strength training, discipline','Final: Idea 2 — semantic depth wins']},{title:'Reflection',items:['Semantics must connect to genuine emotion','Balance: needs × feasibility × cost','Emotional resonance requires meaningful behavior']}] },
+    zh:{ title:'MuscleFuel Bottle 肌力水壶', desc:'温度低于45°C时从纯黑变为肌肉纹样的运动杯，搭配哑铃形补充罐，以产品语义创造健身情感联结。', tags:['产品语义学','CMF设计','热致变色材料','健身'], label:'项目 13 — 艺术与工艺 · 产品语义学', intro:['MuscleFuel探索产品的形态和材料行为如何与用户的健身目标建立情感联结。','杯子在温度低于45°C时从纯黑变为肌肉轮廓纹样。'], category:'产品设计 · 产品语义学 · 个人作品', blocks:[{title:'材料与CMF',items:['热致变色硅胶外套','45°C以上纯黑，以下显现肌肉纹','食品级塑料杯身','哑铃形补充罐']},{title:'产品语义学',items:['哑铃形罐——举重隐喻','温度变化=可见的力量增长','物品作为激励伴侣而非简单容器','将健身仪式融入日常补水']},{title:'概念来源',items:['构想1——户外跑步，计步减塑','构想2——力量训练，坚持塑形','最终：构想2——语义深度胜出']},{title:'反思',items:['产品语义必须连接真实用户情感','平衡：用户需求×技术可行性×制造成本','情感共鸣需要物品"有意义地行为"']}] }
+  },
+  {
+    id:'14', cat:'theory', num:'14 / 2024–2026', badge_en:'Design Theory', badge_zh:'设计理论',
+    en:{ title:'Concept Maps & Design History', desc:'An ongoing collection of concept maps tracing design history and design theory. Each map is a spatial synthesis of ideas, influences, and frameworks.', tags:['Design History','Theory Mapping','Visual Thinking','Ongoing'], label:'Project 14 — Design Theory · Ongoing', intro:['Evolving concept maps tracing the lineages of design history and design theory. Spatial diagrams that reveal connections between movements, thinkers, and ideas.','Two series: History (chronological evolution) and Theory (frameworks shaping practice today).'], category:'Design Theory · Ongoing Research · Chunyu Yang', blocks:[{title:'History Series',items:['Chronological mapping of design movements','Geographic spread of influence','Key figures and cross-period connections','Material culture and industrial context']},{title:'Theory Series',items:['Critical frameworks and thinking models','Form, function, and meaning relationships','Semantic, semiotic, phenomenological positions','Contemporary debates in practice']},{title:'Method',items:['Hand-drawn and digitally refined','Nodes: thinkers, movements, concepts','Edges: influence, reaction, synthesis','Visual density reflects complexity']},{title:'Intent',items:['Make abstract theory spatially navigable','Personal reference map for practice','Understand where contemporary work sits historically','More diagrams added each semester']}] },
+    zh:{ title:'概念图与设计史', desc:'追踪设计史和设计理论的持续性概念图集。每张图都是思想、影响和框架的空间综合。', tags:['设计史','理论图谱','视觉思维','持续更新'], label:'项目 14 — 设计理论 · 持续进行', intro:['不断演进的概念图，追踪设计史和设计理论的脉络。空间图解揭示运动、思想家和观念之间的联系。','两个系列：历史图（年代演进）和理论图（当代实践框架）。'], category:'设计理论 · 持续研究 · 杨春宇', blocks:[{title:'历史系列',items:['设计运动年代学图谱','影响的地理传播','关键人物与跨时代联系','物质文化与工业背景']},{title:'理论系列',items:['批判性框架与设计思维模型','形式、功能与意义的关系','语义、符号学、现象学立场','设计实践中的当代争论']},{title:'方法',items:['手绘+数字精绘','节点：思想家、运动、概念','边：影响、反应、综合','视觉密度反映关系复杂度']},{title:'意图',items:['让抽象理论可空间导航','构建个人实践参考图谱','理解当代工作的历史位置','每学期持续添加更多图解']}] }
+  },
+  {
+    id:'15', cat:'theory', num:'15 / May 2026', badge_en:'Design Theory · Manifesto', badge_zh:'设计理论 · 宣言',
+    en:{ title:'Stop Calling Nudging Neutral', desc:'Issue 01 of the Debates in Design Manifesto Series. A broadsheet newspaper arguing that design is never neutral — every interface creates a hierarchy of actions.', tags:['Behavioral Design','Design Manifesto','Newspaper Format','Critical Theory'], label:'Debates in Design · Manifesto Series · Issue No. 01', intro:['VOL. 01 · MAY 2026. A broadsheet manifesto on behavioral nudging and the myth of neutral design. Design does not simply present choices — it structures them.','The takeaway: "Design is never neutral. It either empowers choice or shapes it."'], category:'Design Theory · Critical Writing · Chunyu Yang', blocks:[{title:'Canonical Voices',items:['Richard Thaler — nudge theory, choice architecture','Cass Sunstein — ethics of behavioral influence','B. J. Fogg — persuasive technology','Tristan Harris — attention economy','Don Norman — affordances','Daniel Kahneman — cognitive bias']},{title:'5 Evidence Cases',items:['01 Default Option Bias','02 Cookie Consent Nudging','03 Dark Pattern (visual hierarchy)','04 Netflix Autoplay','05 Power of Defaults — organ donation']},{title:'Design Influence Model',items:['Defaults → set the starting point','Friction → increase or decrease effort','Automation → make some actions effortless','Feedback → shape perception and motivation']},{title:'Key Definitions',items:['Behavioral Nudging — steering without restricting','Neutral Design — a myth','Persuasion — relatively transparent influence','Manipulation — hidden exploitation of bias']}] },
+    zh:{ title:'别再说助推是中立的', desc:'《设计辩论》宣言系列第01期。一份报纸形式的宣言，论证设计从不中立——每个界面都在构建行为层级。', tags:['行为设计','设计宣言','报纸格式','批判理论'], label:'设计辩论 · 宣言系列 · 第01期', intro:['第01卷 · 2026年5月。关于行为助推与"设计中立"神话的报纸宣言。设计不只是呈现选择——它构建选择。','核心观点："设计从不中立。它要么赋权于选择，要么塑造选择。"'], category:'设计理论 · 批判写作 · 杨春宇', blocks:[{title:'经典声音',items:['理查德·泰勒——助推理论，选择架构','卡斯·桑斯坦——行为影响的伦理学','B·J·福格——说服技术','特里斯坦·哈里斯——注意力经济','唐·诺曼——可供性','丹尼尔·卡尼曼——认知偏见']},{title:'5个视觉证据',items:['01 默认选项偏差','02 Cookie同意助推','03 暗黑模式（视觉层级）','04 Netflix自动播放','05 默认的力量——器官捐献']},{title:'设计影响力模型',items:['默认设置→设定起点','摩擦力→增加或减少难度','自动化→让某些行为更轻松','反馈→塑造感知与动机']},{title:'关键定义',items:['行为助推——引导而不限制','中立设计——一个神话','说服——对用户相对透明的影响','操纵——隐秘利用认知偏见']}] }
+  }
+];
+
+// ─── ICONS ───────────────────────────────────────
+const ICONS = {
+  '01': `<ellipse cx="50" cy="55" rx="42" ry="22" stroke="currentColor" stroke-width="2"/><circle cx="30" cy="52" r="6" stroke="currentColor" stroke-width="1.5"/><circle cx="70" cy="52" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 55 Q50 20 92 55" stroke="currentColor" stroke-width="1.5"/>`,
+  '02': `<circle cx="50" cy="35" r="28" stroke="currentColor" stroke-width="2"/><line x1="50" y1="63" x2="50" y2="85" stroke="currentColor" stroke-width="1.5"/><rect x="38" y="82" width="24" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>`,
+  '03': `<circle cx="50" cy="42" r="24" stroke="currentColor" stroke-width="2"/><circle cx="40" cy="38" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="60" cy="38" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M42 50 Q50 56 58 50" stroke="currentColor" stroke-width="1.5"/><circle cx="25" cy="72" r="8" stroke="currentColor" stroke-width="1.5"/><circle cx="75" cy="72" r="8" stroke="currentColor" stroke-width="1.5"/>`,
+  '04': `<path d="M20 30 Q20 70 50 78 Q80 70 80 30 Z" stroke="currentColor" stroke-width="2" fill="none"/><ellipse cx="50" cy="30" rx="30" ry="10" stroke="currentColor" stroke-width="1.5"/><path d="M35 55 L40 48 L45 58 L50 44 L55 60 L60 52 L65 55" stroke="currentColor" stroke-width="1.5"/>`,
+  '05': `<ellipse cx="50" cy="60" rx="40" ry="14" stroke="currentColor" stroke-width="2"/><ellipse cx="50" cy="52" rx="22" ry="22" stroke="currentColor" stroke-width="1.5"/><circle cx="50" cy="42" r="8" stroke="currentColor" stroke-width="1"/>`,
+  '06': `<ellipse cx="50" cy="48" rx="28" ry="14" stroke="currentColor" stroke-width="2"/><circle cx="22" cy="65" r="7" stroke="currentColor" stroke-width="1.5"/><circle cx="78" cy="65" r="7" stroke="currentColor" stroke-width="1.5"/><line x1="50" y1="34" x2="50" y2="20" stroke="currentColor" stroke-width="1.5"/>`,
+  '07': `<circle cx="50" cy="40" r="18" stroke="currentColor" stroke-width="2"/><circle cx="50" cy="40" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M15 70 Q30 60 50 65 Q70 70 85 60" stroke="currentColor" stroke-width="1.5"/>`,
+  '08': `<rect x="15" y="20" width="70" height="60" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="50" cy="50" r="8" stroke="currentColor" stroke-width="1.5"/>`,
+  '09': `<rect x="30" y="10" width="40" height="70" rx="6" stroke="currentColor" stroke-width="1.5"/><circle cx="50" cy="55" r="10" stroke="currentColor" stroke-width="1.5"/><circle cx="46" cy="52" r="2" fill="currentColor"/><circle cx="54" cy="52" r="2" fill="currentColor"/><path d="M44 59 Q50 64 56 59" stroke="currentColor" stroke-width="1.5"/>`,
+  '10': `<path d="M35 25 Q30 35 32 55 Q34 72 50 78 Q66 72 68 55 Q70 35 65 25 Z" stroke="currentColor" stroke-width="1.5" fill="none"/><ellipse cx="50" cy="25" rx="15" ry="5" stroke="currentColor" stroke-width="1.5"/>`,
+  '11': `<rect x="28" y="12" width="44" height="76" rx="5" stroke="currentColor" stroke-width="1.5"/><rect x="33" y="18" width="34" height="50" rx="2" stroke="currentColor" stroke-width="1"/><path d="M33 30 L50 20 L67 30" stroke="currentColor" stroke-width="1" stroke-dasharray="3 2"/>`,
+  '12': `<path d="M50 20 Q65 10 70 30 Q80 20 78 40 Q90 38 85 55 Q80 70 65 65 Q60 80 50 78 Q40 80 35 65 Q20 70 15 55 Q10 38 22 40 Q20 20 30 30 Q35 10 50 20Z" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="50" y1="55" x2="50" y2="88" stroke="currentColor" stroke-width="2"/>`,
+  '13': `<rect x="35" y="20" width="30" height="55" rx="8" stroke="currentColor" stroke-width="1.5"/><rect x="20" y="82" width="60" height="10" rx="5" stroke="currentColor" stroke-width="1.2"/>`,
+  '14': `<circle cx="50" cy="50" r="8" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="25" r="5" stroke="currentColor" stroke-width="1"/><circle cx="80" cy="25" r="5" stroke="currentColor" stroke-width="1"/><circle cx="20" cy="75" r="5" stroke="currentColor" stroke-width="1"/><circle cx="80" cy="75" r="5" stroke="currentColor" stroke-width="1"/><line x1="42" y1="46" x2="25" y2="28" stroke="currentColor" stroke-width="0.8"/><line x1="58" y1="46" x2="75" y2="28" stroke="currentColor" stroke-width="0.8"/>`,
+  '15': `<rect x="12" y="10" width="76" height="80" rx="2" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="22" x2="88" y2="22" stroke="currentColor" stroke-width="1"/><rect x="18" y="27" width="33" height="20" rx="1" stroke="currentColor" stroke-width="0.8"/><line x1="18" y1="57" x2="82" y2="57" stroke="currentColor" stroke-width="0.5"/><line x1="18" y1="75" x2="82" y2="75" stroke="currentColor" stroke-width="1"/>`
+};
+
+// ─── LANGUAGE TOGGLE ─────────────────────────────
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'zh' : 'en';
+  applyLang();
+  renderCards(currentFilter);
+  const openProject = document.querySelector('#page-project.active');
+  if (openProject && currentProjectId) renderProject(currentProjectId);
+}
+
+function applyLang() {
+  const t = UI[currentLang];
+  const L = currentLang;
+
+  // Lang button
+  document.getElementById('lang-toggle').textContent = t.langBtn;
+
+  // Nav links
+  document.querySelectorAll('.nav-links a[data-en]').forEach(a => {
+    a.textContent = a.dataset[L] || a.dataset.en;
+  });
+
+  // Hero
+  document.getElementById('hero-index').textContent = t.heroIndex;
+  document.getElementById('hero-tag').textContent = t.heroTag;
+  document.getElementById('hero-title').innerHTML = t.heroTitle;
+  document.getElementById('hero-sub').textContent = t.heroSub;
+  document.getElementById('scroll-label').textContent = t.scroll;
+
+  // Work
+  document.getElementById('work-title').textContent = t.workTitle;
+  document.querySelectorAll('#filter-bar .filter-btn').forEach(btn => {
+    const key = btn.dataset[L];
+    if (key) btn.textContent = key;
+  });
+
+  // Footer
+  document.getElementById('footer-copy').textContent = t.footerCopy;
+  document.getElementById('footer-note').textContent = t.footerNote;
+
+  // Back btn
+  document.getElementById('back-btn').textContent = t.backBtn;
+
+  // About
+  document.getElementById('about-headline').innerHTML = t.aboutHeadline;
+  document.getElementById('about-p1').textContent = t.aboutP1;
+  document.getElementById('about-p2').textContent = t.aboutP2;
+  document.getElementById('awards-title').innerHTML = t.awardsTitle;
+  document.getElementById('award1-sub').textContent = t.award1Sub;
+  document.getElementById('award2-name').textContent = t.award2Name;
+  document.getElementById('award3-name').textContent = t.award3Name;
+  document.getElementById('award3-sub').textContent = t.award3Sub;
+  document.getElementById('award4-name').textContent = t.award4Name;
+  document.getElementById('award4-sub').textContent = t.award4Sub;
+  document.getElementById('lang-title').textContent = t.langTitle;
+  document.getElementById('lang1').textContent = t.lang1;
+  document.getElementById('lang1-sub').textContent = t.lang1Sub;
+  document.getElementById('lang2').textContent = t.lang2;
+  document.getElementById('lang2-sub').textContent = t.lang2Sub;
+  document.getElementById('skills-title').textContent = t.skillsTitle;
+  document.getElementById('exp-title').textContent = t.expTitle;
+  document.getElementById('exp1-name').textContent = t.exp1Name;
+  document.getElementById('exp1-sub').textContent = t.exp1Sub;
+  document.getElementById('tag-power').textContent = t.tagPower;
+  document.getElementById('tag-safety').textContent = t.tagSafety;
+  document.getElementById('tag-patent').textContent = t.tagPatent;
+  document.getElementById('exp2-name').textContent = t.exp2Name;
+  document.getElementById('exp2-sub').textContent = t.exp2Sub;
+  document.getElementById('exp3-name').textContent = t.exp3Name;
+  document.getElementById('exp3-sub').textContent = t.exp3Sub;
+  document.getElementById('exp4-name').textContent = t.exp4Name;
+  document.getElementById('exp4-sub').textContent = t.exp4Sub;
+
+  // Contact
+  document.getElementById('contact-title').innerHTML = t.contactTitle;
+  document.getElementById('contact-desc').textContent = t.contactDesc;
+  document.getElementById('phone-label').textContent = t.phoneLabel;
+
+  // html lang attr
+  document.documentElement.lang = currentLang;
+}
+
+// ─── ROUTER ──────────────────────────────────────
+let currentFilter = 'all';
+let currentProjectId = null;
+
+function goTo(page, projectId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const nav = document.getElementById('main-nav');
+
+  if (page === 'home') {
+    document.getElementById('page-home').classList.add('active');
+    nav.classList.remove('dark');
+    updateNavLinks('home');
+    window.scrollTo(0, 0);
+    setTimeout(initReveal, 100);
+  } else if (page === 'project' && projectId) {
+    currentProjectId = projectId;
+    renderProject(projectId);
+    document.getElementById('page-project').classList.add('active');
+    nav.classList.remove('dark');
+    updateNavLinks('');
+    window.scrollTo(0, 0);
+  } else if (page === 'about') {
+    document.getElementById('page-about').classList.add('active');
+    nav.classList.add('dark');
+    updateNavLinks('about');
+    window.scrollTo(0, 0);
+  } else if (page === 'contact') {
+    document.getElementById('page-contact').classList.add('active');
+    nav.classList.remove('dark');
+    updateNavLinks('contact');
+    window.scrollTo(0, 0);
+  }
+  const hash = page === 'project' ? `#project/${projectId}` : `#${page === 'home' ? '' : page}`;
+  history.pushState({ page, projectId }, '', hash || '/');
+}
+
+function goBack() { goTo('home'); }
+
+function updateNavLinks(active) {
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === active);
+  });
+}
+
+// ─── RENDER CARDS ────────────────────────────────
+function renderCards(filter) {
+  currentFilter = filter;
+  const grid = document.getElementById('projects-grid');
+  grid.innerHTML = '';
+  const wideIds = new Set(['05','08','14','15']);
+  const filtered = PROJECTS.filter(p => filter === 'all' || p.cat === filter);
+  const t = UI[currentLang];
+  const queue = [];
+
+  if (filter === 'all') {
+    let run = 0;
+    for (const p of filtered) {
+      if (wideIds.has(p.id)) {
+        if (run % 2 !== 0) { queue.push({type:'filler'}); run = 0; }
+        queue.push({type:'card', project:p, isWide:true});
+      } else {
+        queue.push({type:'card', project:p, isWide:false});
+        run++;
+      }
+    }
+    if (run % 2 !== 0) queue.push({type:'filler'});
+  } else {
+    for (const p of filtered) queue.push({type:'card', project:p, isWide:false});
+    if (filtered.length % 2 !== 0) queue.push({type:'filler'});
+  }
+
+  for (const item of queue) {
+    if (item.type === 'filler') {
+      const f = document.createElement('div');
+      f.className = 'card-filler';
+      f.innerHTML = `<div class="card-filler-inner">${t.moreComing}</div>`;
+      grid.appendChild(f);
+      continue;
+    }
+    const p = item.project;
+    const d = p[currentLang] || p.en;
+    const badge = currentLang === 'zh' ? (p.badge_zh || p.badge_en) : (p.badge_en || '');
+    const card = document.createElement('div');
+    card.className = item.isWide ? 'project-card wide-card' : 'project-card';
+    if (item.isWide) card.style.gridColumn = '1 / -1';
+    card.onclick = () => goTo('project', p.id);
+
+    const thumb = p.thumb
+      ? `<div class="card-thumb"><img src="${p.thumb}" alt="${d.title}"/></div>`
+      : `<div class="card-thumb"><div class="card-thumb-placeholder">
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+           <span>${t.imgLabel}</span></div></div>`;
+
+    if (item.isWide) {
+      card.innerHTML = `${thumb}<div class="wide-card-content">
+        ${badge ? `<span class="project-category-badge">${badge}</span>` : ''}
+        <div><p class="project-number">${p.num}</p><h3 class="project-title">${d.title}</h3><p class="project-desc">${d.desc}</p></div>
+        <div><div class="project-tags">${d.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+        <div class="project-arrow" style="margin-top:1.5rem;">${UI[currentLang].viewProject}</div></div></div>`;
+    } else {
+      card.innerHTML = `${thumb}
+        ${badge ? `<span class="project-category-badge">${badge}</span>` : ''}
+        <p class="project-number">${p.num}</p><h3 class="project-title">${d.title}</h3>
+        <p class="project-desc">${d.desc}</p>
+        <div class="project-tags">${d.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+        <div class="project-arrow">${UI[currentLang].viewProject}</div>
+        <svg class="project-visual" viewBox="0 0 100 100" fill="none">${ICONS[p.id]||''}</svg>`;
+    }
+    grid.appendChild(card);
+  }
+}
+
+// ─── RENDER PROJECT PAGE ─────────────────────────
+function renderProject(id) {
+  const p = PROJECTS.find(x => x.id === id);
+  if (!p) return;
+  const d = p[currentLang] || p.en;
+  const t = UI[currentLang];
+
+  const blocks = d.blocks.map(b => `
+    <div class="project-page-block">
+      <h4>${b.title}</h4>
+      <ul>${b.items.map(i=>`<li>${i}</li>`).join('')}</ul>
+    </div>`).join('');
+
+  const imgs = (p.detail && p.detail.images) ? p.detail.images : [];
+  const slotCount = Math.max(imgs.length, 3);
+  let slots = '';
+  for (let i = 0; i < slotCount; i++) {
+    const cls = i === 0 ? 'gallery-slot gallery-slot-wide' : 'gallery-slot';
+    slots += imgs[i]
+      ? `<div class="${cls}"><img src="${imgs[i]}" alt="Image ${i+1}"/></div>`
+      : `<div class="${cls}"><div class="gallery-slot-empty">
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+           <span>${t.imgLabel} ${i+1}</span></div></div>`;
+  }
+
+  document.getElementById('project-page-content').innerHTML = `
+    <div class="project-page-header">
+      <div>
+        <div class="project-page-label">${d.label}</div>
+        <h1 class="project-page-title">${d.title}</h1>
+        <div class="project-page-tags">${d.tags.map(tag=>`<span>${tag}</span>`).join('')}</div>
+      </div>
+      <div>
+        ${d.intro.map(para=>`<p class="project-page-desc">${para}</p>`).join('')}
+        <p style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-top:1.5rem;">${d.category}</p>
+      </div>
+    </div>
+    <div class="project-page-gallery">
+      <div class="project-page-gallery-label">${t.galleryLabel}</div>
+      <div class="gallery-grid">${slots}</div>
+    </div>
+    <div class="project-page-body">${blocks}</div>`;
+}
+
+// ─── FILTER ──────────────────────────────────────
+function filterProjects(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards(cat);
+}
+
+// ─── SCROLL REVEAL ───────────────────────────────
+function initReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+// ─── POPSTATE ────────────────────────────────────
+window.addEventListener('popstate', e => {
+  const s = e.state;
+  if (!s) return;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  if (s.page === 'project') { currentProjectId = s.projectId; renderProject(s.projectId); }
+  const el = s.page === 'project' ? 'page-project' : s.page === 'about' ? 'page-about' : s.page === 'contact' ? 'page-contact' : 'page-home';
+  document.getElementById(el).classList.add('active');
+  document.getElementById('main-nav').classList.toggle('dark', s.page === 'about');
+  updateNavLinks(s.page === 'home' ? 'home' : s.page);
+});
+
+// ─── INIT ────────────────────────────────────────
+renderCards('all');
+initReveal();
+</script>
+</body>
+</html>
