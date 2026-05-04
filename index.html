@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chunyu Yang — Design Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0e0e0e;
+    --white: #f5f4f0;
+    --gray: #9a9a8e;
+    --light: #e8e7e2;
+    --accent: #c85a1e;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 3rem;
+    background: var(--white);
+    border-bottom: 1px solid var(--light);
+    mix-blend-mode: normal;
+  }
+
+  .nav-name {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--black);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--black); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    border-bottom: 1px solid var(--light);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-index {
+    position: absolute;
+    top: 7rem;
+    right: 3rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--gray);
+    letter-spacing: 0.08em;
+    writing-mode: vertical-rl;
+    text-transform: uppercase;
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--gray);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    line-height: 1.0;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    max-width: 900px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.4s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    margin-top: 2.5rem;
+    max-width: 480px;
+    font-size: 0.95rem;
+    color: var(--gray);
+    line-height: 1.75;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.6s forwards;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--gray);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1s 1s forwards;
+  }
+
+  .hero-scroll-line {
+    width: 1px;
+    height: 40px;
+    background: var(--gray);
+    animation: scrollLine 1.8s 1.2s infinite;
+  }
+
+  @keyframes scrollLine {
+    0% { transform: scaleY(1); transform-origin: top; }
+    50% { transform: scaleY(0); transform-origin: top; }
+    51% { transform: scaleY(0); transform-origin: bottom; }
+    100% { transform: scaleY(1); transform-origin: bottom; }
+  }
+
+  /* WORK SECTION */
+  section {
+    padding: 6rem 3rem;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid var(--light);
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    font-weight: 400;
+  }
+
+  .section-count {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+  }
+
+  /* PROJECT CARDS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--light);
+    border: 1px solid var(--light);
+  }
+
+  .project-card {
+    background: var(--white);
+    padding: 3.5rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card:hover { background: var(--black); }
+  .project-card:hover .project-number,
+  .project-card:hover .project-tags span,
+  .project-card:hover .project-desc { color: var(--gray); }
+  .project-card:hover .project-title { color: var(--white); }
+  .project-card:hover .project-arrow { color: var(--accent); }
+  .project-card:hover .project-visual { opacity: 0.08; }
+
+  .project-number {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--gray);
+    letter-spacing: 0.12em;
+    margin-bottom: 3rem;
+    transition: color 0.3s;
+  }
+
+  .project-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+    transition: color 0.3s;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--gray);
+    line-height: 1.7;
+    max-width: 380px;
+    margin-bottom: 2rem;
+    transition: color 0.3s;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .project-tags span {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    border: 1px solid var(--light);
+    padding: 0.3rem 0.7rem;
+    border-radius: 100px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .project-card:hover .project-tags span {
+    border-color: #333;
+  }
+
+  .project-arrow {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--black);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .project-arrow::after {
+    content: '→';
+    transition: transform 0.3s;
+  }
+
+  .project-card:hover .project-arrow::after {
+    transform: translateX(4px);
+  }
+
+  .project-visual {
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    width: 180px;
+    height: 180px;
+    opacity: 0.04;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+
+  /* PROJECT DETAIL */
+  .project-detail {
+    display: none;
+    grid-column: 1 / -1;
+    background: var(--black);
+    color: var(--white);
+    padding: 4rem 3.5rem;
+    border-top: 1px solid #222;
+    animation: expandDown 0.4s ease;
+  }
+
+  .project-detail.open { display: block; }
+
+  @keyframes expandDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .detail-close {
+    float: right;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--gray);
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    padding: 0;
+    transition: color 0.2s;
+  }
+
+  .detail-close:hover { color: var(--white); }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    margin-top: 2rem;
+    clear: both;
+  }
+
+  .detail-meta h3 {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .detail-meta p {
+    font-size: 0.85rem;
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .detail-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .detail-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .detail-block h4 {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .detail-block ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .detail-block li {
+    font-size: 0.85rem;
+    color: var(--gray);
+    padding: 0.35rem 0;
+    border-bottom: 1px solid #1e1e1e;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+
+  .detail-block li::before {
+    content: '—';
+    color: #333;
+    font-size: 0.7rem;
+  }
+
+  /* ABOUT */
+  .about-section {
+    background: var(--black);
+    color: var(--white);
+    padding: 7rem 3rem;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .about-left h2 {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+  }
+
+  .about-left h2 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .about-right p {
+    font-size: 0.92rem;
+    color: #aaa;
+    line-height: 1.85;
+    margin-bottom: 1.2rem;
+  }
+
+  .skills-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .skill-item {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: #555;
+    text-transform: uppercase;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #1a1a1a;
+    transition: color 0.2s;
+  }
+
+  .skill-item:hover { color: var(--white); }
+
+  /* CONTACT */
+  .contact-section {
+    padding: 7rem 3rem;
+    border-top: 1px solid var(--light);
+  }
+
+  .contact-inner {
+    max-width: 700px;
+  }
+
+  .contact-inner h2 {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-inner p {
+    font-size: 0.92rem;
+    color: var(--gray);
+    line-height: 1.75;
+    margin-bottom: 3rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .contact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--light);
+    text-decoration: none;
+    color: var(--black);
+    transition: padding-left 0.25s;
+  }
+
+  .contact-link:hover { padding-left: 0.8rem; }
+
+  .contact-link span:first-child {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .contact-link span:last-child {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--gray);
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+
+  .contact-link:hover span:last-child { color: var(--black); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--gray);
+    letter-spacing: 0.08em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    section, .about-section, .contact-section { padding: 4rem 1.5rem; }
+    .hero { padding: 0 1.5rem 4rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .detail-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .detail-content { grid-template-columns: 1fr; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-name">Chunyu Yang</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-index">Industrial Design · 2024</div>
+  <p class="hero-tag">Portfolio — Chunyu Yang</p>
+  <h1 class="hero-title">
+    Design that<br>
+    <em>solves</em> real<br>
+    problems.
+  </h1>
+  <p class="hero-sub">
+    Industrial designer working at the intersection of hardware, safety, and emerging technology. Creating tools people can trust.
+  </p>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-header reveal">
+    <h2 class="section-title">Selected Work</h2>
+    <span class="section-count">02 Projects</span>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- PROJECT 01 -->
+    <div class="project-card" onclick="toggleDetail('detail-01', this)">
+      <p class="project-number">01 / 2024</p>
+      <h3 class="project-title">WoodCraft<br>Vision</h3>
+      <p class="project-desc">Smart AR safety eyewear for woodworking professionals. Integrates LiDAR, AI hazard detection, and real-time measurement overlays.</p>
+      <div class="project-tags">
+        <span>AR / Smart Eyewear</span>
+        <span>LiDAR</span>
+        <span>Safety Tech</span>
+        <span>Industrial Design</span>
+      </div>
+      <div class="project-arrow">View project</div>
+      <!-- decorative svg -->
+      <svg class="project-visual" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="50" cy="55" rx="42" ry="22" stroke="currentColor" stroke-width="2"/>
+        <circle cx="30" cy="52" r="6" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="70" cy="52" r="6" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M8 55 Q50 20 92 55" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+    </div>
+
+    <!-- PROJECT 02 -->
+    <div class="project-card" onclick="toggleDetail('detail-02', this)">
+      <p class="project-number">02 / 2024</p>
+      <h3 class="project-title">Balloon<br>Comm</h3>
+      <p class="project-desc">Tethered balloon system for rapid communication restoration in earthquake disaster zones. Covers 30km diameter, serving 30,000–50,000 people per unit.</p>
+      <div class="project-tags">
+        <span>Disaster Response</span>
+        <span>LTE / GSM</span>
+        <span>Systems Design</span>
+        <span>Hardware</span>
+      </div>
+      <div class="project-arrow">View project</div>
+      <svg class="project-visual" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="35" r="28" stroke="currentColor" stroke-width="2"/>
+        <line x1="50" y1="63" x2="50" y2="85" stroke="currentColor" stroke-width="1.5"/>
+        <rect x="38" y="82" width="24" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M30 55 Q50 75 70 55" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+      </svg>
+    </div>
+
+    <!-- DETAIL 01 -->
+    <div class="project-detail" id="detail-01">
+      <button class="detail-close" onclick="closeDetail('detail-01')">Close ✕</button>
+      <div class="detail-grid">
+        <div class="detail-meta">
+          <div class="detail-label">Project 01</div>
+          <h3>WoodCraft Vision</h3>
+          <p>A practical smart eyewear designed for woodworking professionals, addressing the two primary causes of workshop accidents: improper tool use and lack of real-time safety feedback.</p>
+          <p>The device lifts the antenna to 50–100m height using helium balloons, achieving wide-area coverage at low deployment cost.</p>
+          <div class="detail-label" style="margin-top:1.5rem">Category</div>
+          <p style="margin-bottom:0">Industrial Design · Personal Work</p>
+        </div>
+        <div class="detail-content">
+          <div class="detail-block">
+            <h4>Core Technology</h4>
+            <ul>
+              <li>LiDAR for precise distance measurement</li>
+              <li>AI-powered tool recommendations</li>
+              <li>Real-time safety analytics</li>
+              <li>Eye tracking technique</li>
+              <li>Auto-tinting visor</li>
+              <li>Cameras + rangefinding + AI detection</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <h4>Key Features</h4>
+            <ul>
+              <li>Accurate cutting distance measurement</li>
+              <li>Instant hazard alerts overlay</li>
+              <li>Air-permeable cushioned frame</li>
+              <li>Touch adjustment controls</li>
+              <li>Companion mobile app</li>
+              <li>Teaching & community modes</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <h4>Design Language</h4>
+            <ul>
+              <li>White frame — clean, professional</li>
+              <li>Orange accents — safety visibility</li>
+              <li>Adjustable headband + buckle</li>
+              <li>High-strength visor housing</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <h4>Research Findings</h4>
+            <ul>
+              <li>Accidents from improper tool use</li>
+              <li>Existing goggles lack smart alerts</li>
+              <li>VR headsets too heavy for workshops</li>
+              <li>Need for pre-use safety training</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAIL 02 -->
+    <div class="project-detail" id="detail-02">
+      <button class="detail-close" onclick="closeDetail('detail-02')">Close ✕</button>
+      <div class="detail-grid">
+        <div class="detail-meta">
+          <div class="detail-label">Project 02</div>
+          <h3>Balloon Comm</h3>
+          <p>A tethered balloon communication restoration system designed for post-earthquake disaster zones. Deployed by airdrop, it uses a master-subordinate balloon network to rapidly restore LTE and GSM coverage.</p>
+          <p>Each balloon group covers 30km diameter, serving 30,000–50,000 people, ensuring short-term communication until infrastructure is rebuilt.</p>
+          <div class="detail-label" style="margin-top:1.5rem">Category</div>
+          <p style="margin-bottom:0">Systems Design · Hardware · Personal Work</p>
+        </div>
+        <div class="detail-content">
+          <div class="detail-block">
+            <h4>System Components</h4>
+            <ul>
+              <li>Master balloon with LTE base station</li>
+              <li>Subordinate balloons (GSM backup)</li>
+              <li>Microwave antenna mesh network</li>
+              <li>Radar / camera equipment</li>
+              <li>Satellite antenna link</li>
+              <li>Mesh router + power system</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <h4>Technical Specs</h4>
+            <ul>
+              <li>Antenna elevation: 50–100m</li>
+              <li>Coverage: 30km diameter</li>
+              <li>LTE: 700MHz–2.7GHz, 15km range</li>
+              <li>GSM: 900/1800MHz, 35km range</li>
+              <li>Wind tolerance: up to 15m/s safely</li>
+              <li>3 directional antennas × 60° per balloon</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <h4>Deployment</h4>
+            <ul>
+              <li>Airdrop from aircraft</li>
+              <li>Open case → inflate balloon</li>
+              <li>Release line → check signal</li>
+              <li>Fully operable by rescue teams</li>
+              <li>Recovery via reel-in system</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <h4>Testing Results</h4>
+            <ul>
+              <li>Open environment: 2km stable range</li>
+              <li>Building occlusion: 1km stable</li>
+              <li>Prototype validated via actual launch</li>
+              <li>ATK-LORA-01 module tested</li>
+              <li>Fluid simulation at 10/15/20 m/s</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-grid">
+    <div class="about-left reveal">
+      <h2>
+        Designing for<br>
+        people in<br>
+        <em>demanding</em><br>
+        situations.
+      </h2>
+    </div>
+    <div class="about-right reveal">
+      <p>
+        I'm Chunyu Yang, an industrial designer focused on creating products that perform when it matters most — in workshops, on disaster sites, wherever reliability is non-negotiable.
+      </p>
+      <p>
+        My work bridges physical hardware design with emerging technologies like LiDAR, AR, and mesh communications. I research deeply, prototype rigorously, and design with both function and human experience in mind.
+      </p>
+      <p>
+        Each project begins with real user interviews and ends with tested prototypes.
+      </p>
+      <div class="skills-list">
+        <div class="skill-item">Industrial Design</div>
+        <div class="skill-item">AR / Smart Devices</div>
+        <div class="skill-item">Systems Thinking</div>
+        <div class="skill-item">LiDAR Integration</div>
+        <div class="skill-item">3D Modeling</div>
+        <div class="skill-item">Fluid Simulation</div>
+        <div class="skill-item">UX / App Design</div>
+        <div class="skill-item">Prototype & Test</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <h2 class="reveal">Let's work<br>together.</h2>
+    <p class="reveal">Open to design collaborations, full-time roles, and research partnerships in hardware and safety technology.</p>
+    <div class="contact-links reveal">
+      <a class="contact-link" href="mailto:2265543433@qq.com">
+        <span>Email</span>
+        <span>2265543433@qq.com →</span>
+      </a>
+      <a class="contact-link" href="tel:+8615893261769">
+        <span>Phone</span>
+        <span>+86 158 9326 1769 →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2024 Chunyu Yang — Industrial Designer</p>
+  <p>Personal Work · All Rights Reserved</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Project toggle
+  function toggleDetail(id, card) {
+    const detail = document.getElementById(id);
+    const isOpen = detail.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.project-detail').forEach(d => d.classList.remove('open'));
+
+    if (!isOpen) {
+      detail.classList.add('open');
+      setTimeout(() => {
+        detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 50);
+    }
+  }
+
+  function closeDetail(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+</script>
+</body>
+</html>
