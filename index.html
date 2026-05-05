@@ -772,7 +772,7 @@ function renderProject(id) {
     </div>`).join('');
 
   const imgs = (p.detail && p.detail.images) ? p.detail.images : [];
-  const slotCount = Math.max(imgs.length, 3);
+  const slotCount = imgs.length;
   let slots = '';
   for (let i = 0; i < slotCount; i++) {
     const cls = i === 0 ? 'gallery-slot gallery-slot-wide' : 'gallery-slot';
