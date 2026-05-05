@@ -467,6 +467,7 @@ const PROJECTS = [
     id:'01', cat:'industrial', num:'01 / 2024', thumb:'assets/01-woodcraft-vision/cover.png',
     detail:{
     images:[
+      'assets/01-woodcraft-vision/cover.png'
       'assets/01-woodcraft-vision/detail-01.png',
       'assets/01-woodcraft-vision/detail-02.png',
       'assets/01-woodcraft-vision/detail-03.png',
@@ -478,17 +479,46 @@ const PROJECTS = [
     zh:{ title:'WoodCraft Vision 智能护目镜', desc:'专为木工专业人士设计的AR安全眼镜。集成LiDAR精准测量、AI工具建议与实时危险预警。', tags:['AR / 智能护目镜','LiDAR','安全技术','工业设计'], label:'项目 01', intro:['专为木工专业人士设计的实用智能护目镜，针对工坊事故的两大主要原因——不当使用工具和缺乏实时安全反馈——提供解决方案。','提供精准切割距离测量、切割建议和即时危险预警。'], category:'工业设计 · 个人作品', blocks:[{title:'核心技术',items:['LiDAR精准距离测量','AI工具使用建议','实时安全分析','眼动追踪技术','自动变色护目镜']},{title:'主要功能',items:['精准切割距离测量','即时危险预警叠加显示','透气缓冲框架','触控调节按钮','配套手机应用']},{title:'设计语言',items:['白色框架——干净专业','橙色强调色——安全可见性','可调节头带与扣具','高强度护目镜外壳']},{title:'研究发现',items:['事故源于工具使用不当','现有护目镜缺少智能预警','VR头显太重不适合工坊','需要使用前安全培训']}] }
   },
   {
-    id:'02', cat:'industrial', num:'02 / 2024',
+    id:'02', cat:'industrial', num:'02 / 2024', thumb:'assets/02-balloon-comm/cover.png',
+    detail:{
+    images:[
+      'assets/02-balloon-comm/cover.png'
+      'assets/02-balloon-comm/detail-01.png',
+      'assets/02-balloon-comm/detail-02.png',
+      'assets/02-balloon-comm/detail-03.png',
+      'assets/02-balloon-comm/detail-04.png',
+    ],
+    video:'assets/02-balloon-comm/video.mp4'
+  },
     en:{ title:'Balloon Comm', desc:'Tethered balloon system for rapid communication restoration in earthquake disaster zones. Covers 30km diameter, serving 30,000–50,000 people per unit.', tags:['Disaster Response','LTE / GSM','Systems Design','Hardware'], label:'Project 02', intro:['A tethered balloon communication restoration system for post-earthquake disaster zones. Deployed by airdrop, using master-subordinate balloons to rapidly restore coverage.','Each balloon group covers 30km diameter, serving 30,000–50,000 people.'], category:'Systems Design · Hardware · Personal Work', blocks:[{title:'System Components',items:['Master balloon with LTE base station','Subordinate balloons (GSM backup)','Microwave antenna mesh network','Radar / camera equipment','Satellite antenna link']},{title:'Technical Specs',items:['Antenna elevation: 50–100m','Coverage: 30km diameter','LTE: 700MHz–2.7GHz, 15km range','GSM: 900/1800MHz, 35km range','Wind tolerance: up to 15m/s']},{title:'Deployment',items:['Airdrop from aircraft','Open case → inflate balloon','Release line → check signal','Fully operable by rescue teams','Recovery via reel-in system']},{title:'Testing Results',items:['Open environment: 2km stable range','Building occlusion: 1km stable','Prototype validated via actual launch','Fluid simulation at 10/15/20 m/s']}] },
     zh:{ title:'Balloon Comm 气球通信系统', desc:'用于地震灾区快速通信恢复的系留气球系统。每套可覆盖直径30公里区域，服务3万至5万人。', tags:['灾难响应','LTE / GSM','系统设计','硬件'], label:'项目 02', intro:['用于震后灾区的系留气球通信恢复系统，通过空投部署，利用主从气球网络快速恢复LTE和GSM覆盖。','每套气球组可覆盖直径30公里区域，服务3万至5万人，确保灾区短期通信。'], category:'系统设计 · 硬件 · 个人作品', blocks:[{title:'系统组件',items:['携带LTE基站的主气球','从气球（GSM备份）','微波天线网状网络','雷达/摄像设备','卫星天线链路']},{title:'技术规格',items:['天线高度：50–100米','覆盖范围：直径30公里','LTE：700MHz–2.7GHz，15公里','GSM：900/1800MHz，35公里','抗风能力：最高15m/s']},{title:'部署流程',items:['从飞机空投','打开箱体→充气','释放绳索→检查信号','救援队可完全操作','通过卷线系统回收']},{title:'测试结果',items:['空旷环境：2公里稳定通信','建筑遮蔽：1公里稳定','原型通过实际发射验证','流体仿真：10/15/20 m/s']}] }
   },
   {
-    id:'03', cat:'industrial', num:'03 / 2024',
+    id:'03', cat:'industrial', num:'03 / 2024', thumb:'assets/03-roaming-vacuum/cover.png',
+    detail:{
+    images:[
+      'assets/03-roaming-vacuum/cover.png',
+    ],
+    video:'assets/03-roaming-vacuum/video.mp4'
+  },
     en:{ title:'Roaming Vacuum', desc:"A vacuum cleaner transformed into a remote-controlled roaming companion. Working with the object's existing affordances to create something that cleans but also behaves.", tags:['Interactive Object','Embedded Systems','Repurposing','Wireless Control'], label:'Project 03', intro:["A household vacuum cleaner transformed into a remote-controlled roaming object by adding wireless mobility — without redesigning the product.",'The result is an object that still cleans, but also behaves more like a playful companion.'], category:'Interactive Object Design · Personal Work', blocks:[{title:'Technical Stack',items:['Wireless servo control (NRF module)','ATK-LORA-01 angle control','STM32 microcontroller','BMP280 sensor module','OLED real-time display']},{title:'Design Approach',items:['Work with existing affordances','Remote-controlled wheel mobility','Simple facial expression added','Identity amplified, not erased','Passive tool → active creature']},{title:'Reflection',items:["Repurposing = listening to the object",'People reacted to its personality','Creature-like qualities emerged','Changed how users approached it']},{title:'Inspiration',items:['Autonomous cleaning devices','Companion-like domestic robots','Playful product design','Behavioral object design']}] },
     zh:{ title:'Roaming Vacuum 漫游吸尘器', desc:'将旧吸尘器改装为遥控漫游伴侣。利用物体既有的设计语言——轮子、声音、吸力——创造出既会清洁又有行为的存在。', tags:['交互物体','嵌入式系统','再利用','无线控制'], label:'项目 03', intro:['通过添加无线移动功能，将家用吸尘器改造成遥控漫游物体——无需重新设计产品。','结果是一个仍然会清洁、但行为更像玩伴而非简单家电的物体。'], category:'交互物体设计 · 个人作品', blocks:[{title:'技术架构',items:['无线舵机控制（NRF模块）','ATK-LORA-01角度控制','STM32微控制器','BMP280传感器模块','OLED实时显示']},{title:'设计方法',items:['利用物体既有设计语言','遥控轮子移动','添加简单表情','放大身份而非抹去','被动工具→主动生物']},{title:'反思',items:['再利用=倾听物体的声音','用户对其个性做出反应','生物般特质自然涌现','改变了用户的接近方式']},{title:'灵感来源',items:['自动清洁设备','伴侣型家用机器人','趣味产品设计','行为物体设计']}] }
   },
   {
-    id:'04', cat:'industrial', num:'04 / 2024',
+    id:'04', cat:'industrial', num:'04 / 2024', thumb:'assets/04-health-watch-toilet/cover.png',
+    detail:{
+    images:[
+      'assets/04-health-watch-toilet/cover.png',
+      'assets/04-health-watch-toilet/detail-01.png',
+      'assets/04-health-watch-toilet/detail-02.png',
+      'assets/04-health-watch-toilet/detail-03.png',
+      'assets/04-health-watch-toilet/detail-04.png',
+      'assets/04-health-watch-toilet/detail-05.png',
+      'assets/04-health-watch-toilet/detail-06.png',
+      'assets/04-health-watch-toilet/detail-0.png',
+    ]
+  },
+      
     en:{ title:'Health Watch Toilet', desc:'A smart toilet seat integrating health monitoring for diabetic patients — measuring urinary glucose, blood pressure, blood oxygen, and ECG during daily bathroom use.', tags:['Health Tech','STM32 / Sensors','Embedded Design','Privacy-first'], label:'Project 04', intro:['A smart toilet designed for diabetic patients requiring long-term monitoring. Integrates sensors into the daily toileting process.','Measures urinary glucose, blood pressure, blood oxygen, and ECG. Validated with 5 participants.'], category:'Integrated Health Monitoring · Personal Work', blocks:[{title:'Sensors & Hardware',items:['ECG electrode patches','Blood oxygen + heart rate module','Blood pressure sensor','Urine glucose optical sensor','STM32 microcontroller + OLED']},{title:'Testing Results',items:['Glucose error as low as 0.1%','Heart rate readings: ±3–7 bpm','ECG signal generally clear','5 participants, varied health profiles']},{title:'Design Principles',items:['Privacy-first interaction','Seamless daily integration','Raised seat to prevent splatter','ECG measurement area on seat']},{title:'Problem Space',items:['Diabetics avoid hospital urine tests','Finger pricks: painful and costly','No real-time doctor feedback','Risk of complications (neuropathy, CKD)']}] },
     zh:{ title:'Health Watch Toilet 健康监测马桶', desc:'为糖尿病患者设计的智能马桶座，在日常如厕过程中测量尿糖、血压、血氧和心电图数据。', tags:['健康科技','STM32 / 传感器','嵌入式设计','隐私优先'], label:'项目 04', intro:['为需要长期持续健康监测的糖尿病患者设计的智能马桶，将传感器融入日常如厕过程。','测量尿糖、血压、血氧和心电图数据，5名参与者参与了验证测试。'], category:'综合健康监测 · 个人作品', blocks:[{title:'传感器与硬件',items:['心电图电极贴片','血氧+心率模块','血压传感器','尿糖光学传感器','STM32微控制器+OLED']},{title:'测试结果',items:['葡萄糖误差低至0.1%','心率读数：±3–7 bpm','心电图信号总体清晰','5名不同健康状况参与者']},{title:'设计原则',items:['隐私优先交互','无缝日常融合','抬高座位防飞溅','心电图测量区在座圈上']},{title:'问题空间',items:['糖尿病人逃避医院尿检','指尖采血：痛苦且昂贵','缺乏实时医生反馈','并发症风险（神经病变、肾病）']}] }
   },
@@ -546,6 +576,7 @@ const PROJECTS = [
     id:'15', cat:'theory', num:'15 / May 2026', thumb:'assets/15-nudging-neutral/cover.png',
     detail:{
     images:[
+      'assets/15-nudging-neutral/cover.png'
       'assets/15-nudging-neutral/detail-01.png',
       'assets/15-nudging-neutral/detail-02.png',
     ]
