@@ -133,6 +133,18 @@ nav.dark .nav-links a:hover, nav.dark .nav-links a.active { color: var(--white);
 .project-page-block li { font-size: 0.88rem; color: var(--gray); padding: 0.4rem 0; border-bottom: 1px solid var(--light); display: flex; align-items: baseline; gap: 0.6rem; }
 .project-page-block li::before { content: '—'; color: var(--light); font-size: 0.7rem; }
 .project-page-gallery { margin: 3rem 0; padding: 2.5rem 0; border-top: 1px solid var(--light); border-bottom: 1px solid var(--light); }
+.project-page-video {
+  margin: 3rem 0 0;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--light);
+}
+.project-page-video video {
+  width: 100%;
+  max-height: 720px;
+  display: block;
+  background: #0e0e0e;
+  border: 1px solid var(--light);
+}
 .project-page-gallery-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
 .gallery-grid {
   display: flex;
@@ -823,6 +835,18 @@ function renderProject(id) {
            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
            <span>${t.imgLabel} ${i+1}</span></div></div>`;
   }
+  
+  const videoHtml = (p.detail && p.detail.video)
+  ? `
+    <div class="project-page-video">
+      <div class="project-page-gallery-label">Project Video</div>
+      <video controls playsinline preload="metadata">
+        <source src="${p.detail.video}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  `
+  : '';
 
   document.getElementById('project-page-content').innerHTML = `
     <div class="project-page-header">
@@ -840,7 +864,8 @@ function renderProject(id) {
       <div class="project-page-gallery-label">${t.galleryLabel}</div>
       <div class="gallery-grid">${slots}</div>
     </div>
-    <div class="project-page-body">${blocks}</div>`;
+    <div class="project-page-body">${blocks}</div>
+    ${videoHtml}`;
 }
 
 // ─── FILTER ──────────────────────────────────────
