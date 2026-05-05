@@ -612,7 +612,15 @@ const PROJECTS = [
     zh:{ title:'Safe Swing Car 安全扭扭车', desc:'为迪卡侬设计的真正安全、可持续儿童扭扭车。通过模块化架构解决姿势风险、翻车隐患和废弃物问题。', tags:['儿童产品','迪卡侬','人体工学','可持续设计'], label:'项目 06 — 迪卡侬', intro:['一款儿童扭扭车，解决三个被忽视的问题：不正确坐姿导致O型腿、玩耍时翻车风险以及产品废弃后的塑料浪费。','2合1可变形几何结构，可从扭扭车模式转变为平衡车模式。'], category:'儿童产品设计 · 迪卡侬项目', blocks:[{title:'安全特性',items:['倾斜踏板防止膝内翻（O型腿）','防翻辅助侧轮','骑行区域：300×170mm人体工学设计','座椅高度可调：210–250mm']},{title:'设计系统',items:['2合1：扭扭车→平衡车','可拆卸模块化架构','室内/室外可换轮组','车把集成音乐播放器']},{title:'材料与表面',items:['白色结构框架——干净耐用','橙色强调色——安全可见性','黑色橡胶握把与轮毂','柔软触感座椅——儿童安全']},{title:'可持续性',items:['完全可拆卸分类回收','模块化更换减少总废弃量','2合1延长产品生命周期']}] }
   },
   {
-    id:'07', cat:'industrial', num:'07 / 2024',
+    id:'07', cat:'industrial', num:'07 / 2024', thumb:'assets/07-aquarescue/cover.png',
+    detail:{
+    images:[
+      'assets/07-aquarescue/cover.png',
+      'assets/07-aquarescue/detail-01.jpg',
+      'assets/07-aquarescue/detail-01.png'
+    ],
+    video:'assets/07-aquarescue/video.mp4'
+  },
     en:{ title:'AquaRescue', desc:'An experimental prototype for automated water rescue. Uses YOLO-based computer vision and dual-servo mechanical control to launch flotation toward a person in distress.', tags:['Computer Vision','YOLO Detection','Mechatronics','Safety Systems'], label:'Project 07 · Naomi Yang', intro:['AquaRescue investigates how computer vision and mechanical control can automate early flotation delivery without requiring on-site human action.','The system reframes success from precise targeting to reliable, reachable deployment.'], category:'Mechatronics · Computer Vision · Personal Work', blocks:[{title:'System Architecture',items:['Single-camera image acquisition','YOLO-based real-time person detection','Monocular target distance estimation','Wind speed + direction sensing','WiFi wireless data transmission']},{title:'Mechanical Experiments',items:['Set A: Servo + electromagnet — unstable','Set B: Single-servo — poor direction','Set C: Dual-servo — 10/10 straight launches','Wind compensation tested']},{title:'Key Findings',items:['Dual-servo actuation critical for reliability','Fixed-angle control limited under wind','System-level latency main failure mode','Reachable deployment > exact precision']},{title:'Prototype',items:['Wind direction + speed sensors','Camera module + launch mechanism','Python + Arduino codebase','Demo video: youtu.be/n6saFRbx8Nw']}] },
     zh:{ title:'AquaRescue 水上智能救援系统', desc:'自动化水上急救原型。利用基于YOLO的计算机视觉和双舵机机械控制，向溺水者发射浮力装置。', tags:['计算机视觉','YOLO检测','机电一体化','安全系统'], label:'项目 07 · 杨春雨（Naomi）', intro:['AquaRescue探索计算机视觉和机械控制如何在无需现场人员的情况下自动化实施早期浮力救援。','系统将成功标准从精准命中重新定义为可靠、可够及的部署。'], category:'机电一体化 · 计算机视觉 · 个人作品', blocks:[{title:'系统架构',items:['单摄像头图像采集','基于YOLO的实时人员检测','单目目标距离估算','风速+风向传感','WiFi无线数据传输']},{title:'机械实验',items:['方案A：舵机+电磁铁——不稳定','方案B：单舵机——方向性差','方案C：双舵机——10/10次直线发射','风向补偿测试']},{title:'关键发现',items:['双舵机驱动对可靠性至关重要','固定角度控制在风中受限','系统级延迟是主要故障模式','可够及部署优先于精准命中']},{title:'原型',items:['风向+风速传感器','摄像头模块+发射机构','Python + Arduino代码库','演示视频：youtu.be/n6saFRbx8Nw']}] }
   },
