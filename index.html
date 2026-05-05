@@ -134,14 +134,63 @@ nav.dark .nav-links a:hover, nav.dark .nav-links a.active { color: var(--white);
 .project-page-block li::before { content: '—'; color: var(--light); font-size: 0.7rem; }
 .project-page-gallery { margin: 3rem 0; padding: 2.5rem 0; border-top: 1px solid var(--light); border-bottom: 1px solid var(--light); }
 .project-page-gallery-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
-.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--light); border: 1px solid var(--light); }
-.gallery-slot { background: var(--white); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-.gallery-slot img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
-.gallery-slot:hover img { transform: scale(1.04); }
-.gallery-slot-empty { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
-.gallery-slot-empty svg { opacity: 0.12; width: 28px; height: 28px; }
-.gallery-slot-empty span { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); opacity: 0.5; }
-.gallery-slot-wide { grid-column: span 2; aspect-ratio: 8/3; }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  background: none;
+  border: none;
+}
+
+.gallery-slot {
+  background: #f3f2ed;
+  border: 1px solid var(--light);
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.gallery-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.gallery-slot:hover img {
+  transform: scale(1.01);
+}
+
+.gallery-slot-wide {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 9;
+}
+
+.gallery-slot-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gallery-slot-empty svg {
+  opacity: 0.12;
+  width: 28px;
+  height: 28px;
+}
+
+.gallery-slot-empty span {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray);
+  opacity: 0.5;
+}
 
 /* ── ABOUT ── */
 .about-section { min-height: 100vh; background: var(--black); color: var(--white); padding: 8rem 3rem 6rem; }
