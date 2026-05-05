@@ -625,7 +625,24 @@ const PROJECTS = [
     zh:{ title:'AquaRescue 水上智能救援系统', desc:'自动化水上急救原型。利用基于YOLO的计算机视觉和双舵机机械控制，向溺水者发射浮力装置。', tags:['计算机视觉','YOLO检测','机电一体化','安全系统'], label:'项目 07 · 杨春雨（Naomi）', intro:['AquaRescue探索计算机视觉和机械控制如何在无需现场人员的情况下自动化实施早期浮力救援。','系统将成功标准从精准命中重新定义为可靠、可够及的部署。'], category:'机电一体化 · 计算机视觉 · 个人作品', blocks:[{title:'系统架构',items:['单摄像头图像采集','基于YOLO的实时人员检测','单目目标距离估算','风速+风向传感','WiFi无线数据传输']},{title:'机械实验',items:['方案A：舵机+电磁铁——不稳定','方案B：单舵机——方向性差','方案C：双舵机——10/10次直线发射','风向补偿测试']},{title:'关键发现',items:['双舵机驱动对可靠性至关重要','固定角度控制在风中受限','系统级延迟是主要故障模式','可够及部署优先于精准命中']},{title:'原型',items:['风向+风速传感器','摄像头模块+发射机构','Python + Arduino代码库','演示视频：youtu.be/n6saFRbx8Nw']}] }
   },
   {
-    id:'08', cat:'industrial', num:'08 / 2024',
+    id:'08', cat:'industrial', num:'08 / 2024', thumb:'assets/08-injection-mould-design/cover.png',
+    detail:{
+    images:[
+      'assets/08-injection-mould-design/cover.png',
+      'assets/08-injection-mould-design/detail-07.png',
+      'assets/08-injection-mould-design/detail-02.png',
+      'assets/08-injection-mould-design/detail-03.png',
+      'assets/08-injection-mould-design/detail-04.png',
+      'assets/08-injection-mould-design/detail-05.png',
+      'assets/08-injection-mould-design/detail-01.png'
+    ],
+    videos:[
+      'assets/08-injection-mould-design/video1.mp4',
+      'assets/08-injection-mould-design/video2.mp4',
+      'assets/08-injection-mould-design/video3.mp4'
+    ]
+  },
+    
     en:{ title:'Injection Mould Design', desc:'Complete injection moulding analysis and tooling design for a liquid-dispensing screw cap. Full SolidWorks pipeline targeting 250,000 parts per year.', tags:['Mould Flow Analysis','SolidWorks Plastics','Tooling Design','Manufacturing Engineering'], label:'Project 08 — MMME3035', intro:['A rigorous end-to-end injection moulding study on a liquid-dispensing screw cap, from physical measurement through mould flow simulation to a fully designed four-cavity production mould.','Target: 250,000 parts per annum. Material: STAMYLAN P 110MNK10 (PP).'], category:'Manufacturing Engineering · Academic Project · Chunyu Yang', blocks:[{title:'Mould Flow Results',items:['Gate: nozzle tip injection (Scheme 2)','Max fill time: 0.38 seconds','Fill pressure: 0.10–29.92 MPa','Max cooling time: 2.88 seconds','Volume shrinkage: 1.47–16.53%']},{title:'Material Selection',items:['STAMYLAN P 110MNK10 (DSM)','Elastic modulus: 2100 MPa','Melt temp: 230°C, demould: 110°C','Thermal conductivity: 0.171 W/m-K']},{title:'Tooling Design',items:['Four-cavity mould layout','Surrounding cooling channel design','Venting slots: 0.05mm deep, ≤0.3mm wide','Fixed half: hot runner + cooling channels']},{title:'Part Specifications',items:['Outer diameter: 22.46mm','4-turn internal thread, height 14mm','Nozzle height: 45.38mm, tip: 2.1mm','20× external grip bumps at 18° intervals']}] },
     zh:{ title:'注塑模具设计', desc:'液体分配螺旋盖的完整注塑分析与模具设计。全套SolidWorks流程，目标产量25万件/年。', tags:['模流分析','SolidWorks Plastics','模具设计','制造工程'], label:'项目 08 — MMME3035', intro:['对液体分配螺旋盖进行严格的端到端注塑研究，从实物测量、1:1建模，经过模流仿真，到完整的四腔生产模具设计。','目标产量：25万件/年。选用材料：STAMYLAN P 110MNK10（PP）。'], category:'制造工程 · 学术项目 · 杨春雨', blocks:[{title:'模流分析结果',items:['浇口：喷嘴尖端注射（方案2）','最大充填时间：0.38秒','充填压力：0.10–29.92 MPa','最大冷却时间：2.88秒','体积收缩率：1.47–16.53%']},{title:'材料选择',items:['STAMYLAN P 110MNK10（DSM）','弹性模量：2100 MPa','熔融温度：230°C，脱模温度：110°C','导热系数：0.171 W/m-K']},{title:'模具设计',items:['四腔模具布局','环绕式冷却水道设计','排气槽：深0.05mm，宽≤0.3mm','定模：热流道+冷却水道']},{title:'零件规格',items:['外径：22.46mm','4圈内螺纹，高14mm','喷嘴高45.38mm，尖端2.1mm','20个外部防滑纹，间隔18°']}] }
   },
